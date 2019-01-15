@@ -23,21 +23,17 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
-        if (searchUuid(uuid)) {
-            return storage[i];
+        if (searchUuid(uuid) == -1) {
+            return null;
         }
-        return null;
+        return storage[searchUuid(uuid)];
     }
 
     void delete(String uuid) {
-        searchUuid(uuid);
-        storage[i] = null;
-        int StorageCounter = 0;
-        for (int b = 0; b < storage.length; b++) {
-            if (storage[b] != null) {
-                storage[StorageCounter] = storage[b];
-                StorageCounter++;
-            }
+        int startIndex = searchUuid(uuid);
+        storage[startIndex] = null;
+        for (int b = startIndex; b < counter; b++) {
+            storage[b] = storage[b + 1];
         }
         counter--;
     }
@@ -46,22 +42,20 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        Resume[] tempStorage = copyOf(storage, size());
-        return tempStorage;
+        return copyOf(storage, counter);
     }
 
     int size() {
         return counter;
     }
 
-    boolean searchUuid(String uuid) {
-        for (i = 0; i < storage.length; i++) {
+    int searchUuid(String uuid) {
+        for (i = 0; i < counter; i++) {
             if (storage[i].uuid == uuid) {
-                break;
+                return i;
             }
-            return false;
         }
-        return true;
+        return -1;
     }
 
 }
