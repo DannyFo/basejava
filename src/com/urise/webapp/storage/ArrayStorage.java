@@ -10,7 +10,7 @@ import java.util.Arrays;
 public class ArrayStorage {
     private int counter = 0;
 
-    public Resume[] storage = new Resume[10_000];
+    private Resume[] storage = new Resume[10_000];
 
     public void clear() {
         Arrays.fill(storage, 0, counter, null);
@@ -38,16 +38,13 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
-        if (searchUuid(uuid) == -1) {
+        int i = searchUuid(uuid);
+        if (i == -1) {
             System.out.println("no resume found");
         } else {
-            for (int b = 0; b < counter; b++) {
-                if (uuid == storage[b].getUuid()) {
-                    storage[b] = storage[counter - 1];
-                    storage[counter - 1] = null;
-                    counter--;
-                }
-            }
+            storage[i] = storage[counter - 1];
+            storage[counter - 1] = null;
+            counter--;
         }
     }
 
