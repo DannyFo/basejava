@@ -10,16 +10,6 @@ import java.util.Arrays;
 public class SortedArrayStorage extends AbstractArrayStorage{
 
     @Override
-    public void clear() {
-
-    }
-
-    @Override
-    public void save(Resume r) {
-
-    }
-
-    @Override
     public void delete(String uuid) {
         int i = searchUuid(uuid);
         if (i == -1) {
@@ -36,19 +26,21 @@ public class SortedArrayStorage extends AbstractArrayStorage{
     }
 
     @Override
-    public void update(Resume r) {
-
-    }
-
-    @Override
-    public Resume[] getAll() {
-        return new Resume[0];
+    public void save(Resume r) {
+        if (counter == STORAGE_LIMIT) {
+            System.out.println("storage is full");
+        } else if (searchUuid(r.getUuid()) <= - 1) {
+            storage[counter] = r;
+            counter++;
+        } else {
+            System.out.println("resume is already exist");
+        }
     }
 
     @Override
     protected int searchUuid(String uuid) {
         Resume searchKey = new Resume();
         searchKey.setUuid(uuid);
-        return Arrays.binarySearch(storage, 0, counter ,new Resume());
+        return Arrays.binarySearch(storage, 0, counter ,searchKey);
     }
 }
