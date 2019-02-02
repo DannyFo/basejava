@@ -7,7 +7,7 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-public abstract class AbstractArrayStorage implements Storage{
+public abstract class AbstractArrayStorage implements Storage {
     protected static final int STORAGE_LIMIT = 10_000;
 
     protected int counter = 0;
@@ -16,17 +16,6 @@ public abstract class AbstractArrayStorage implements Storage{
     public void clear() {
         Arrays.fill(storage, 0, counter, null);
         counter = 0;
-    }
-
-    public void save(Resume r) {
-        if (counter == STORAGE_LIMIT) {
-            System.out.println("storage is full");
-        } else if (searchUuid(r.getUuid()) == - 1) {
-            storage[counter] = r;
-            counter++;
-        } else {
-            System.out.println("resume is already exist");
-        }
     }
 
     public void update(Resume r) {

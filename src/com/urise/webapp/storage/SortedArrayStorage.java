@@ -7,7 +7,7 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-public class SortedArrayStorage extends AbstractArrayStorage{
+public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     public void delete(String uuid) {
@@ -25,22 +25,29 @@ public class SortedArrayStorage extends AbstractArrayStorage{
 
     }
 
-    @Override
     public void save(Resume r) {
+        int b = -searchUuid(r.getUuid());
         if (counter == STORAGE_LIMIT) {
             System.out.println("storage is full");
-        } else if (searchUuid(r.getUuid()) <= - 1) {
-            storage[counter] = r;
-            counter++;
+        } else if (b > 0) {
+            if (b >= counter) {
+                storage[counter] = r;
+            } else if (b < counter) {
+                Resume[] SecondHalfStorage = storage;
+                System.arraycopy(storage, b, SecondHalfStorage, (b + 1), (counter - b));
+                SecondHalfStorage[b] = r;
+                storage = SecondHalfStorage;
+            }
         } else {
             System.out.println("resume is already exist");
         }
+        counter++;
     }
 
     @Override
     protected int searchUuid(String uuid) {
         Resume searchKey = new Resume();
         searchKey.setUuid(uuid);
-        return Arrays.binarySearch(storage, 0, counter ,searchKey);
+        return Arrays.binarySearch(storage, 0, counter, searchKey);
     }
 }
