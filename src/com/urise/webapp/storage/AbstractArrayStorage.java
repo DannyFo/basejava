@@ -39,7 +39,7 @@ public abstract class AbstractArrayStorage implements Storage {
         int foundIndex = searchUuid(r.getUuid());
         if (counter == STORAGE_LIMIT) {
             System.out.println("storage is full");
-        } else if (foundIndex > 0) {
+        } else if (foundIndex >= 0) {
             System.out.println("resume is already exist");
         } else {
             saveTargetResume(r, foundIndex);
@@ -59,10 +59,6 @@ public abstract class AbstractArrayStorage implements Storage {
         }
     }
 
-    protected abstract void saveTargetResume(Resume r, int foundIndex);
-
-    protected abstract void deleteTargetResume(int foundIndex);
-
     @Override
     public int size() {
         return counter;
@@ -78,6 +74,9 @@ public abstract class AbstractArrayStorage implements Storage {
         return storage[foundIndex];
     }
 
+    protected abstract void saveTargetResume(Resume r, int foundIndex);
+
+    protected abstract void deleteTargetResume(int foundIndex);
 
     protected abstract int searchUuid(String uuid);
 }

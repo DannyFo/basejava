@@ -7,18 +7,15 @@ import com.urise.webapp.model.Resume;
  */
 public class ArrayStorage extends AbstractArrayStorage {
 
-
+    @Override
     protected void deleteTargetResume(int foundIndex) {
         storage[foundIndex] = storage[counter - 1];
     }
 
+    @Override
     protected void saveTargetResume(Resume r, int foundIndex) {
         storage[counter] = r;
     }
-
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
 
     @Override
     protected int searchUuid(String uuid) {

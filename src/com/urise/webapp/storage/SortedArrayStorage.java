@@ -9,7 +9,7 @@ import java.util.Arrays;
  */
 public class SortedArrayStorage extends AbstractArrayStorage {
 
-
+    @Override
     protected void deleteTargetResume(int foundIndex) {
         int movePosition = counter - foundIndex - 1;
         if (movePosition > 0) {
@@ -17,6 +17,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         }
     }
 
+    @Override
     protected void saveTargetResume(Resume r, int foundIndex) {
         int saveIndex = -foundIndex - 1;
         System.arraycopy(storage, saveIndex, storage, (saveIndex + 1), counter - saveIndex);
