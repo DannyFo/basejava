@@ -7,30 +7,14 @@ import com.urise.webapp.model.Resume;
  */
 public class ArrayStorage extends AbstractArrayStorage {
 
-    @Override
-    public void delete(String uuid) {
-        int foundIndex = searchUuid(uuid);
-        if (foundIndex == -1) {
-            System.out.println("no resume found");
-        } else {
-            storage[foundIndex] = storage[counter - 1];
-            storage[counter - 1] = null;
-            counter--;
-        }
+
+    protected void deleteTargetResume(int foundIndex) {
+        storage[foundIndex] = storage[counter - 1];
     }
 
-    @Override
-    public void save(Resume r) {
-        if (counter == STORAGE_LIMIT) {
-            System.out.println("storage is full");
-        } else if (searchUuid(r.getUuid()) == -1) {
-            storage[counter] = r;
-            counter++;
-        } else {
-            System.out.println("resume is already exist");
-        }
+    protected void saveTargetResume(Resume r, int foundIndex) {
+        storage[counter] = r;
     }
-
 
     /**
      * @return array, contains only Resumes in storage (without null)
