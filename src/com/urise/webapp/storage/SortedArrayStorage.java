@@ -11,13 +11,11 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     public void delete(String uuid) {
-        int i = searchUuid(uuid);
-        if (i == -1) {
+        int foundIndex = searchUuid(uuid);
+        if (foundIndex < 0) {
             System.out.println("no resume found");
         } else {
-            int startIndex = searchUuid(uuid);
-            storage[startIndex] = null;
-            for (int b = startIndex; b < counter; b++) {
+            for (int b = foundIndex; b < counter + 1; b++) {
                 storage[b] = storage[b + 1];
             }
             counter--;
@@ -25,18 +23,17 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     }
 
+    @Override
     public void save(Resume r) {
-        int b = -searchUuid(r.getUuid());
+        int foundIndex = -searchUuid(r.getUuid()) - 1;
         if (counter == STORAGE_LIMIT) {
             System.out.println("storage is full");
-        } else if (b > 0) {
-            if (b >= counter) {
+        } else if (foundIndex >= 0) {
+            if (foundIndex >= counter) {
                 storage[counter] = r;
-            } else if (b < counter) {
-                Resume[] SecondHalfStorage = storage;
-                System.arraycopy(storage, b, SecondHalfStorage, (b + 1), (counter - b));
-                SecondHalfStorage[b] = r;
-                storage = SecondHalfStorage;
+            } else {
+                System.arraycopy(storage, foundIndex, storage, (foundIndex + 1), counter - foundIndex);
+                storage[foundIndex] = r;
             }
         } else {
             System.out.println("resume is already exist");

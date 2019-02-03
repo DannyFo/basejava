@@ -11,7 +11,6 @@ public interface Storage {
 
     void save(Resume r);
 
-
     Resume get(String uuid);
 
     void delete(String uuid);
