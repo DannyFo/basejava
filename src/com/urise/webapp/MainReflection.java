@@ -3,9 +3,11 @@ package com.urise.webapp;
 import com.urise.webapp.model.Resume;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class MainReflection {
-    public static void main(String[] args) throws IllegalAccessException {
+    public static void main(String[] args) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException { //NoSuchMethodException  и InvocationTargetExceptio что это?
         Resume r = new Resume();
         Field field = r.getClass().getDeclaredFields()[0];
         field.setAccessible(true);
@@ -14,8 +16,7 @@ public class MainReflection {
         field.set(r, "new uuid");
         //TODO: invoke r.toString via reflection
         System.out.println(r);
-        String methodToString = r.toString();
-        methodToString = "uuid2";
-        System.out.println(methodToString);
+        Method method = r.getClass().getMethod("toString");
+        System.out.println(method.invoke(r));
     }
 }
