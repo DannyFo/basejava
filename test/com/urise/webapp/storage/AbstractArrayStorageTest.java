@@ -43,7 +43,7 @@ public class AbstractArrayStorageTest {
 
     @Test
     public void update() {
-        Resume r1 = new Resume("uuid3");
+        Resume r1 = new Resume(UUID_3);
         storage.update(r1);
         Assert.assertSame(storage.get(UUID_3), r1);
     }
@@ -66,9 +66,8 @@ public class AbstractArrayStorageTest {
     @Test
     public void save() {
         storage.save(NOT_SAVED_TEST_RESUME);
-        storage.get("uuid4");
         Assert.assertEquals(4, storage.size());
-        Assert.assertEquals("uuid4", storage.get("uuid4").getUuid());
+        Assert.assertEquals(new Resume(DUMMY), storage.get(DUMMY));
     }
 
     @Test(expected = StorageException.class)
@@ -78,29 +77,28 @@ public class AbstractArrayStorageTest {
             for (int i = 0; i < STORAGE_LIMIT; i++) {
                 storage.save(new Resume(i + "uuid"));
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (StorageException e) {
             Assert.fail("Storage Overflow");
         }
-        Resume r1 = new Resume("uuid4");
-        storage.save(r1);
+        storage.save(NOT_SAVED_TEST_RESUME);
     }
 
     @Test(expected = ExistStorageException.class)
     public void saveWithExistResume() {
-        Resume r1 = new Resume("uuid3");
+        Resume r1 = new Resume(UUID_3);
         storage.save(r1);
     }
 
     @Test(expected = NotExistStorageException.class)
     public void delete() {
-        storage.delete("uuid3");
-        storage.get("uuid3");
+        storage.delete(UUID_3);
         Assert.assertEquals(2, storage.size());
+        storage.get(UUID_3);
     }
 
     @Test(expected = NotExistStorageException.class)
     public void deleteNotExistResume() {
-        storage.delete("uuid4");
+        storage.delete(DUMMY);
     }
 
     @Test
@@ -110,7 +108,7 @@ public class AbstractArrayStorageTest {
 
     @Test
     public void get() {
-        Assert.assertEquals(new Resume("uuid3"), storage.get("uuid3"));
+        Assert.assertEquals(new Resume(UUID_3), storage.get(UUID_3));
     }
 
     @Test(expected = NotExistStorageException.class)
