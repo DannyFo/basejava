@@ -1,8 +1,5 @@
 package com.urise.webapp.storage;
 
-import com.urise.webapp.exeption.ExistStorageException;
-import com.urise.webapp.exeption.NotExistStorageException;
-import com.urise.webapp.exeption.StorageException;
 import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -10,7 +7,7 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-public abstract class AbstractArrayStorage implements Storage {
+public abstract class AbstractArrayStorage extends AbstractStorage {
     protected static final int STORAGE_LIMIT = 10_000;
 
     protected int counter = 0;
@@ -23,43 +20,8 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     @Override
-    public void update(Resume r) {
-        int foundIndex = searchUuid(r.getUuid());
-        if (foundIndex < 0) {
-            throw new NotExistStorageException(r.getUuid());
-        } else {
-            storage[foundIndex] = r;
-        }
-    }
-
-    @Override
     public Resume[] getAll() {
         return Arrays.copyOf(storage, counter);
-    }
-
-    @Override
-    public void save(Resume r) {
-        int foundIndex = searchUuid(r.getUuid());
-        if (counter == STORAGE_LIMIT) {
-            throw new StorageException("Storage overflow", r.getUuid());
-        } else if (foundIndex >= 0) {
-            throw new ExistStorageException(r.getUuid());
-        } else {
-            saveTargetResume(r, foundIndex);
-            counter++;
-        }
-    }
-
-    @Override
-    public void delete(String uuid) {
-        int foundIndex = searchUuid(uuid);
-        if (foundIndex < 0) {
-            throw new NotExistStorageException(uuid);
-        } else {
-            deleteTargetResume(foundIndex);
-            storage[counter - 1] = null;
-            counter--;
-        }
     }
 
     @Override
@@ -67,18 +29,41 @@ public abstract class AbstractArrayStorage implements Storage {
         return counter;
     }
 
+    protected abstract int searchUuid(String uuid);
+
     @Override
-    public Resume get(String uuid) {
-        int foundIndex = searchUuid(uuid);
-        if (foundIndex < 0) {
-            throw new NotExistStorageException(uuid);
+    protected boolean storageOverflow() {
+        if (counter == STORAGE_LIMIT) {
+            return true;
         }
+        return false;
+    }
+
+    @Override
+    protected void saveResume(Resume r, int foundIndex) {
+        saveTargetResume(r, foundIndex);
+        counter++;
+    }
+
+    @Override
+    protected Resume returnResume(int foundIndex) {
         return storage[foundIndex];
+    }
+
+    @Override
+    protected void deleteResume(int foundIndex) {
+        deleteTargetResume(foundIndex);
+        storage[counter - 1] = null;
+        counter--;
+    }
+
+    protected Resume updateResume(int foundIndex, Resume r) {
+        return storage[foundIndex] = r;
     }
 
     protected abstract void saveTargetResume(Resume r, int foundIndex);
 
     protected abstract void deleteTargetResume(int foundIndex);
 
-    protected abstract int searchUuid(String uuid);
+
 }
