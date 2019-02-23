@@ -1,5 +1,6 @@
 package com.urise.webapp.storage;
 
+import com.urise.webapp.exeption.StorageException;
 import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -29,18 +30,11 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return counter;
     }
 
-    protected abstract int searchUuid(String uuid);
-
-    @Override
-    protected boolean storageOverflow() {
-        if (counter == STORAGE_LIMIT) {
-            return true;
-        }
-        return false;
-    }
-
     @Override
     protected void saveResume(Resume r, int foundIndex) {
+        if (counter == STORAGE_LIMIT) {
+            throw new StorageException("Storage overflow", r.getUuid());
+        }
         saveTargetResume(r, foundIndex);
         counter++;
     }
@@ -65,5 +59,5 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     protected abstract void deleteTargetResume(int foundIndex);
 
-
+    protected abstract int searchUuid(String uuid);
 }

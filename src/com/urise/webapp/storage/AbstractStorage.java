@@ -2,7 +2,6 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.exeption.ExistStorageException;
 import com.urise.webapp.exeption.NotExistStorageException;
-import com.urise.webapp.exeption.StorageException;
 import com.urise.webapp.model.Resume;
 
 
@@ -17,9 +16,7 @@ public abstract class AbstractStorage implements Storage {
     @Override
     public void save(Resume r) {
         int foundIndex = searchUuid(r.getUuid());
-        if (storageOverflow()) {//метод типа boolean в коллекции всегда false
-            throw new StorageException("Storage overflow", r.getUuid());
-        } else if (foundIndex >= 0) {
+        if (foundIndex >= 0) {
             throw new ExistStorageException(r.getUuid());
         } else {
             saveResume(r, foundIndex);
@@ -63,8 +60,6 @@ public abstract class AbstractStorage implements Storage {
 
 
     protected abstract int searchUuid(String uuid);
-
-    protected abstract boolean storageOverflow();
 
     protected abstract void saveResume(Resume r, int foundIndex);
 

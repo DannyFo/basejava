@@ -3,12 +3,13 @@ package com.urise.webapp.storage;
 import com.urise.webapp.model.Resume;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ListStorage extends AbstractStorage {
 
 
-    ArrayList<Resume> listStorage = new ArrayList();
+    List<Resume> listStorage = new ArrayList<>();
 
     @Override
     public void clear() {
@@ -27,15 +28,12 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected int searchUuid(String uuid) {
-        for (Resume r : listStorage)
-            if (r.getUuid().equals(uuid))
-                return listStorage.indexOf(r);
+        for (int counter = 0; counter < listStorage.size(); counter++) {
+            if (listStorage.get(counter).getUuid().equals(uuid)) {
+                return counter;
+            }
+        }
         return -1;
-    }
-
-    @Override
-    protected boolean storageOverflow() {
-        return false;
     }
 
     @Override
