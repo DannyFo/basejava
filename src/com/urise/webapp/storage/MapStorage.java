@@ -2,57 +2,56 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 
-public class ListStorage extends AbstractStorage {
+public class MapStorage extends AbstractStorage {
 
 
-    List<Resume> listStorage = new ArrayList<>();
+    Map<String, Resume> mapStorage = new HashMap<>();
 
     @Override
     public void clear() {
-        listStorage.clear();
+        mapStorage.clear();
     }
 
     @Override
     public Resume[] getAll() {
-        return listStorage.toArray(new Resume[listStorage.size()]);
+        return mapStorage.values().toArray(new Resume[mapStorage.size()]);
     }
 
     @Override
     public int size() {
-        return listStorage.size();
+        return mapStorage.size();
     }
 
     @Override
     protected int searchUuid(String uuid) {
-        for (int counter = 0; counter < listStorage.size(); counter++) {
-            if (listStorage.get(counter).getUuid().equals(uuid)) {
-                return counter;
-            }
+        if (mapStorage.containsKey(uuid)) {
+            return 1;
         }
         return -1;
     }
 
     @Override
     protected void saveResume(Resume r, int foundIndex) {
-        listStorage.add(r);
+        mapStorage.put(r.getUuid(), r);
     }
 
     @Override
     protected Resume returnResume(int foundIndex, String uuid) {
-        return listStorage.get(foundIndex);
+        return mapStorage.get(uuid);
     }
 
     @Override
     protected void deleteResume(int foundIndex, String uuid) {
-        listStorage.remove(foundIndex);
+        mapStorage.remove(uuid);
     }
 
     @Override
     protected Resume updateResume(int foundIndex, Resume r) {
-        return listStorage.set(foundIndex, r);
+        saveResume(r, foundIndex);
+        return mapStorage.get(r.getUuid());
     }
 }

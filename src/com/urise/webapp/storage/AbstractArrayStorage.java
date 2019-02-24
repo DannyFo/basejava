@@ -40,12 +40,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume returnResume(int foundIndex) {
+    protected Resume returnResume(int foundIndex, String uuid) {
         return storage[foundIndex];
     }
 
     @Override
-    protected void deleteResume(int foundIndex) {
+    protected void deleteResume(int foundIndex, String uuid) {
         deleteTargetResume(foundIndex);
         storage[counter - 1] = null;
         counter--;
