@@ -15,40 +15,40 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public void save(Resume r) {
-        int foundIndex = searchUuid(r.getUuid());
-        if (foundIndex >= 0) {
+        Object searchKey = searchUuid(r.getUuid());
+        if (validForExistResume(searchKey)) {//>= 0
             throw new ExistStorageException(r.getUuid());
         } else {
-            saveResume(r, foundIndex);
+            saveResume(r, searchKey);
         }
     }
 
     @Override
     public Resume get(String uuid) {
-        int foundIndex = searchUuid(uuid);
-        if (foundIndex < 0) {
+        Object searchKey = searchUuid(uuid);
+        if (validForNotExistResume(searchKey)) {//< 0
             throw new NotExistStorageException(uuid);
         }
-        return returnResume(foundIndex, uuid);
+        return returnResume(searchKey);
     }
 
     @Override
     public void delete(String uuid) {
-        int foundIndex = searchUuid(uuid);
-        if (foundIndex < 0) {
+        Object searchKey = searchUuid(uuid);
+        if (validForNotExistResume(searchKey)) {
             throw new NotExistStorageException(uuid);
         } else {
-            deleteResume(foundIndex, uuid);
+            deleteResume(searchKey);
         }
     }
 
     @Override
     public void update(Resume r) {
-        int foundIndex = searchUuid(r.getUuid());
-        if (foundIndex < 0) {
+        Object searchKey = searchUuid(r.getUuid());
+        if (validForNotExistResume(searchKey)) {
             throw new NotExistStorageException(r.getUuid());
         } else {
-            updateResume(foundIndex, r);
+            updateResume(searchKey, r);
         }
     }
 
@@ -59,13 +59,17 @@ public abstract class AbstractStorage implements Storage {
     public abstract int size();
 
 
-    protected abstract int searchUuid(String uuid);
+    protected abstract Object searchUuid(String uuid);
 
-    protected abstract void saveResume(Resume r, int foundIndex);
+    protected abstract boolean validForExistResume(Object searchKey);
 
-    protected abstract Resume returnResume(int foundIndex, String uuid);
+    protected abstract boolean validForNotExistResume(Object searchKey);
 
-    protected abstract void deleteResume(int foundIndex, String uuid);
+    protected abstract void saveResume(Resume r, Object searchKey);
 
-    protected abstract Resume updateResume(int foundIndex, Resume r);
+    protected abstract Resume returnResume(Object searchKey);
+
+    protected abstract void deleteResume(Object searchKey);
+
+    protected abstract Resume updateResume(Object searchKey, Resume r);
 }

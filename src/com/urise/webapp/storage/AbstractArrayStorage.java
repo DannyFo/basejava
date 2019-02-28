@@ -31,33 +31,49 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void saveResume(Resume r, int foundIndex) {
+    protected void saveResume(Resume r, Object searchKey) {
         if (counter == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", r.getUuid());
         }
-        saveTargetResume(r, foundIndex);
+        saveTargetResume(r, (int) searchKey);
         counter++;
     }
 
     @Override
-    protected Resume returnResume(int foundIndex, String uuid) {
-        return storage[foundIndex];
+    protected Resume returnResume(Object searchKey) {//ok
+        return storage[(int) searchKey];
     }
 
     @Override
-    protected void deleteResume(int foundIndex, String uuid) {
-        deleteTargetResume(foundIndex);
+    protected void deleteResume(Object searchKey) {
+        deleteTargetResume((int) searchKey);
         storage[counter - 1] = null;
         counter--;
     }
 
-    protected Resume updateResume(int foundIndex, Resume r) {
-        return storage[foundIndex] = r;
+    protected Resume updateResume(Object searchKey, Resume r) {
+        return storage[(int) searchKey] = r;
     }
 
-    protected abstract void saveTargetResume(Resume r, int foundIndex);
+    @Override
+    protected boolean validForExistResume(Object searchKey) {
+        if ((int) searchKey >= 0) {
+            return true;
+        }
+        return false;
+    }
 
-    protected abstract void deleteTargetResume(int foundIndex);
+    @Override
+    protected boolean validForNotExistResume(Object searchKey) {
+        if ((int) searchKey < 0) {
+            return true;
+        }
+        return false;
+    }
 
-    protected abstract int searchUuid(String uuid);
+    protected abstract void saveTargetResume(Resume r, int searchKey);
+
+    protected abstract void deleteTargetResume(int searchKey);
+
+    protected abstract Object searchUuid(String uuid);
 }
