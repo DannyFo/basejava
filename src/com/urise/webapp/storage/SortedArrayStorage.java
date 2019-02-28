@@ -10,22 +10,22 @@ import java.util.Arrays;
 public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
-    protected void deleteTargetResume(int foundIndex) {
-        int movePosition = counter - foundIndex - 1;
+    protected void deleteTargetResume(int searchKey) {
+        int movePosition = counter - searchKey - 1;
         if (movePosition > 0) {
-            System.arraycopy(storage, (foundIndex + 1), storage, foundIndex, movePosition);
+            System.arraycopy(storage, (searchKey + 1), storage, searchKey, movePosition);
         }
     }
 
     @Override
-    protected void saveTargetResume(Resume r, int foundIndex) {
-        int saveIndex = -foundIndex - 1;
+    protected void saveTargetResume(Resume r, int searchKey) {
+        int saveIndex = -searchKey - 1;
         System.arraycopy(storage, saveIndex, storage, (saveIndex + 1), counter - saveIndex);
         storage[saveIndex] = r;
     }
 
     @Override
-    protected int searchUuid(String uuid) {
+    protected Object searchUuid(String uuid) {
         Resume searchKey = new Resume(uuid);
         return Arrays.binarySearch(storage, 0, counter, searchKey);
     }
