@@ -21,14 +21,14 @@ public class MapStorage extends AbstractStorage {
     @Override
     public Resume[] getAll() {
         Resume[] storage = mapStorage.values().toArray(new Resume[mapStorage.size()]);
-        Arrays.sort(storage, new SortByCost());
+        Arrays.sort(storage, new SortByUuid());
         return storage;
     }
 
-    class SortByCost implements Comparator<Resume> {
+    class SortByUuid implements Comparator<Resume> {
         public int compare(Resume a, Resume b) {
             if (a.getUuid().compareTo(b.getUuid()) < 0) return -1;
-            else if (a.getUuid().compareTo(b.getUuid()) < 0) return 1;
+            else if (a.getUuid().compareTo(b.getUuid()) > 0) return 1;
             else return 0;
         }
     }
