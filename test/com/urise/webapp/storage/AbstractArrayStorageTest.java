@@ -59,6 +59,10 @@ public class AbstractArrayStorageTest {
                 new Resume("uuid1"),
                 new Resume("uuid2"),
                 new Resume("uuid3")};
+        System.out.println("\nGet All");
+        for (Resume r : storage.getAll()) {
+            System.out.println(r);
+        }
         Assert.assertArrayEquals(array, storage.getAll());
         Assert.assertEquals(3, storage.getAll().length);
     }

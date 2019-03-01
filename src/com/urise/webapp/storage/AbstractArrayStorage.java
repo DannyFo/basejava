@@ -51,25 +51,15 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         counter--;
     }
 
-    protected Resume updateResume(Object searchKey, Resume r) {
-        return storage[(int) searchKey] = r;
+    protected void updateResume(Object searchKey, Resume r) {
+        storage[(int) searchKey] = r;
     }
 
     @Override
     protected boolean validForExistResume(Object searchKey) {
-        if ((int) searchKey >= 0) {
-            return true;
-        }
-        return false;
+        return (int) searchKey >= 0;
     }
 
-    @Override
-    protected boolean validForNotExistResume(Object searchKey) {
-        if ((int) searchKey < 0) {
-            return true;
-        }
-        return false;
-    }
 
     protected abstract void saveTargetResume(Resume r, int searchKey);
 

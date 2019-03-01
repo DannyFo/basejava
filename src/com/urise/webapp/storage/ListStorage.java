@@ -45,14 +45,6 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean validForNotExistResume(Object searchKey) {
-        if ((int) searchKey < 0) {
-            return true;
-        }
-        return false;
-    }
-
-    @Override
     protected void saveResume(Resume r, Object searchKey) {
         listStorage.add(r);
     }
@@ -68,7 +60,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume updateResume(Object searchKey, Resume r) {
-        return listStorage.set((int) searchKey, r);
+    protected void updateResume(Object searchKey, Resume r) {
+        listStorage.set((int) searchKey, r);
     }
 }
