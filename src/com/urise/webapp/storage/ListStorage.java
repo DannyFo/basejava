@@ -9,7 +9,7 @@ import java.util.List;
 public class ListStorage extends AbstractStorage {
 
 
-    List<Resume> listStorage = new ArrayList<>();
+    private List<Resume> listStorage = new ArrayList<>();
 
     @Override
     public void clear() {
@@ -38,10 +38,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected boolean validForExistResume(Object searchKey) {
-        if ((int) searchKey >= 0) {
-            return true;
-        }
-        return false;
+        return ((int) searchKey >= 0);
     }
 
     @Override

@@ -11,7 +11,7 @@ import java.util.Map;
 public class MapStorage extends AbstractStorage {
 
 
-    Map<String, Resume> mapStorage = new HashMap<>();
+    private Map<String, Resume> mapStorage = new HashMap<>();
 
     @Override
     public void clear() {
@@ -27,9 +27,7 @@ public class MapStorage extends AbstractStorage {
 
     class SortByUuid implements Comparator<Resume> {
         public int compare(Resume a, Resume b) {
-            if (a.getUuid().compareTo(b.getUuid()) < 0) return -1;
-            else if (a.getUuid().compareTo(b.getUuid()) > 0) return 1;
-            else return 0;
+            return (a.getUuid().compareTo(b.getUuid()));
         }
     }
 
@@ -40,10 +38,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected Object searchUuid(String uuid) {
-        if (mapStorage.containsKey(uuid)) {
-            return uuid;
-        }
-        return -1;
+        return uuid;
     }
 
     @Override
