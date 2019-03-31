@@ -8,6 +8,7 @@ import java.util.*;
 public class MapResumeStorage extends AbstractStorage {
 
 
+
     private Map<String , Resume> mapStorage = new HashMap<>();
 
     private static final Comparator<Resume> RESUME_COMPARATOR_BY_FULLNAME = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
@@ -36,7 +37,7 @@ public class MapResumeStorage extends AbstractStorage {
 
     @Override
     protected boolean validForExistResume(Object searchKey) {
-        return mapStorage.containsKey(searchKey);
+        return mapStorage.containsValue(searchKey);
     }
 
     @Override
