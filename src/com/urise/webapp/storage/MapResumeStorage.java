@@ -8,7 +8,7 @@ import java.util.*;
 public class MapResumeStorage extends AbstractStorage {
 
 
-    private Map<String, Resume> mapStorage = new HashMap<>();
+    private Map<String , Resume> mapStorage = new HashMap<>();
 
     private static final Comparator<Resume> RESUME_COMPARATOR_BY_FULLNAME = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
 
