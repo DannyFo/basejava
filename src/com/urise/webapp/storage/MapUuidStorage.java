@@ -2,16 +2,15 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 
-public class MapStorage extends AbstractStorage {
+public class MapUuidStorage extends AbstractStorage {
 
 
     private Map<String, Resume> mapStorage = new HashMap<>();
+
+    private static final Comparator<Resume> RESUME_COMPARATOR_BY_FULLNAME = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
 
     @Override
     public void clear() {
@@ -19,16 +18,10 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        Resume[] storage = mapStorage.values().toArray(new Resume[mapStorage.size()]);
-        Arrays.sort(storage, new SortByUuid());
-        return storage;
-    }
-
-    class SortByUuid implements Comparator<Resume> {
-        public int compare(Resume a, Resume b) {
-            return (a.getUuid().compareTo(b.getUuid()));
-        }
+    public List<Resume> getAllSorted() {
+        List<Resume> allSortedList = new ArrayList<>(mapStorage.values());
+        allSortedList.sort(RESUME_COMPARATOR_BY_FULLNAME);
+        return allSortedList;
     }
 
     @Override

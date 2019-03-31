@@ -24,10 +24,10 @@ public class AbstractArrayStorageTest {
     }
 
     @Before
-    public void setUp() {
-        storage.save(new Resume(UUID_1));
-        storage.save(new Resume(UUID_2));
-        storage.save(new Resume(UUID_3));
+    public void setUp() {// надо делать с этим конструктором: public Resume(String uuid, String fullName)
+        storage.save(new Resume(UUID_1, "b"));
+        storage.save(new Resume(UUID_2, "a"));
+        storage.save(new Resume(UUID_3, "b"));
     }
 
     @After
@@ -54,13 +54,13 @@ public class AbstractArrayStorageTest {
     }
 
     @Test
-    public void getAll() {
+    public void getAllSorted() { // надо делать с этим конструктором: public Resume(String uuid, String fullName)
         Resume[] array = new Resume[]{
-                new Resume("uuid1"),
-                new Resume("uuid2"),
-                new Resume("uuid3")};
-        Assert.assertArrayEquals(array, storage.getAll());
-        Assert.assertEquals(3, storage.getAll().length);
+            new Resume(UUID_2, "a"),
+            new Resume(UUID_1, "b"),
+            new Resume(UUID_3, "b"),};
+        Assert.assertArrayEquals(array, storage.getAllSorted().toArray());
+        Assert.assertEquals(3, storage.getAllSorted().size());
     }
 
     @Test

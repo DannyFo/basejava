@@ -3,13 +3,15 @@ package com.urise.webapp.storage;
 import com.urise.webapp.exeption.StorageException;
 import com.urise.webapp.model.Resume;
 
-import java.util.Arrays;
+import java.util.*;
 
 /**
  * Array based storage for Resumes
  */
 public abstract class AbstractArrayStorage extends AbstractStorage {
     protected static final int STORAGE_LIMIT = 10_000;
+
+    private static final Comparator<Resume> RESUME_COMPARATOR_BY_FULLNAME = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
 
     protected int counter = 0;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
@@ -21,8 +23,10 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return Arrays.copyOf(storage, counter);
+    public List<Resume> getAllSorted() {
+        List<Resume> allSortedList = new ArrayList<>(Arrays.asList(Arrays.copyOf(storage, counter)));
+        allSortedList.sort(RESUME_COMPARATOR_BY_FULLNAME);
+        return allSortedList;
     }
 
     @Override
@@ -35,29 +39,30 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         if (counter == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", r.getUuid());
         }
-        saveTargetResume(r, (int) searchKey);
+        saveTargetResume(r, (Integer) searchKey);
         counter++;
     }
 
     @Override
     protected Resume returnResume(Object searchKey) {//ok
-        return storage[(int) searchKey];
+        return storage[(Integer) searchKey];
     }
 
     @Override
     protected void deleteResume(Object searchKey) {
-        deleteTargetResume((int) searchKey);
+        deleteTargetResume((Integer) searchKey);
         storage[counter - 1] = null;
         counter--;
     }
 
+    @Override
     protected void updateResume(Object searchKey, Resume r) {
-        storage[(int) searchKey] = r;
+        storage[(Integer) searchKey] = r;
     }
 
     @Override
     protected boolean validForExistResume(Object searchKey) {
-        return (int) searchKey >= 0;
+        return (Integer) searchKey >= 0;
     }
 
 
@@ -65,5 +70,5 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     protected abstract void deleteTargetResume(int searchKey);
 
-    protected abstract Object searchUuid(String uuid);
+    protected abstract Integer searchUuid(String uuid);
 }
