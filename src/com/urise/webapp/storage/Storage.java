@@ -11,23 +11,18 @@ public interface Storage {
 
     void clear();
 
-    void save(Resume r);
+    void save(Resume resume);
 
     Resume get(String uuid);
 
     void delete(String uuid);
 
-    void update(Resume r);
-
-//    Resume getByFullName(String fullName);
-
+    void update(Resume resume);
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    //TODO
-    // List<Resume> getAllSorted();
-    // return list, sorted by name;
+
     List<Resume> getAllSorted();
 
     int size();

@@ -3,7 +3,6 @@ package com.urise.webapp.storage;
 import com.urise.webapp.model.Resume;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 
@@ -11,19 +10,14 @@ public class ListStorage extends AbstractStorage {
 
     private List<Resume> listStorage = new ArrayList<>();
 
-    private static final Comparator<Resume> RESUME_COMPARATOR_BY_FULLNAME = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
-
     @Override
     public void clear() {
         listStorage.clear();
     }
 
     @Override
-    public List<Resume> getAllSorted() {
-        List<Resume> allSortedList = new ArrayList<>(listStorage);
-        allSortedList.sort(RESUME_COMPARATOR_BY_FULLNAME);
-        return allSortedList;
-//        return listStorage.toArray(new Resume[listStorage.size()]);
+    protected List<Resume> getArrayList () {
+        return new ArrayList<>(listStorage);
     }
 
     @Override
@@ -47,8 +41,8 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void saveResume(Resume r, Object searchKey) {
-        listStorage.add(r);
+    protected void saveResume(Resume resume, Object searchKey) {
+        listStorage.add(resume);
     }
 
     @Override
@@ -62,7 +56,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void updateResume(Object searchKey, Resume r) {
-        listStorage.set((Integer) searchKey, r);
+    protected void updateResume(Object searchKey, Resume resume) {
+        listStorage.set((Integer) searchKey, resume);
     }
 }

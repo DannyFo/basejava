@@ -27,10 +27,10 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected void saveTargetResume(Resume r, int searchKey) {
+    protected void saveTargetResume(Resume resume, int searchKey) {
         int saveIndex = -searchKey - 1;
         System.arraycopy(storage, saveIndex, storage, (saveIndex + 1), counter - saveIndex);
-        storage[saveIndex] = r;
+        storage[saveIndex] = resume;
     }
 
     @Override

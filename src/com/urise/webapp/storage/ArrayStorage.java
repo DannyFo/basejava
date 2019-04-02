@@ -14,8 +14,8 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected void saveTargetResume(Resume r, int searchKey) {
-        storage[counter] = r;
+    protected void saveTargetResume(Resume resume, int searchKey) {
+        storage[counter] = resume;
     }
 
     @Override

@@ -10,18 +10,14 @@ public class MapUuidStorage extends AbstractStorage {
 
     private Map<String, Resume> mapStorage = new HashMap<>();
 
-    private static final Comparator<Resume> RESUME_COMPARATOR_BY_FULLNAME = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
-
     @Override
     public void clear() {
         mapStorage.clear();
     }
 
     @Override
-    public List<Resume> getAllSorted() {
-        List<Resume> allSortedList = new ArrayList<>(mapStorage.values());
-        allSortedList.sort(RESUME_COMPARATOR_BY_FULLNAME);
-        return allSortedList;
+    protected List<Resume> getArrayList () {
+        return new ArrayList<>(mapStorage.values());
     }
 
     @Override
@@ -40,8 +36,8 @@ public class MapUuidStorage extends AbstractStorage {
     }
 
     @Override
-    protected void saveResume(Resume r, Object searchKey) {
-        mapStorage.put(r.getUuid(), r);
+    protected void saveResume(Resume resume, Object searchKey) {
+        mapStorage.put(resume.getUuid(), resume);
     }
 
     @Override
@@ -55,8 +51,7 @@ public class MapUuidStorage extends AbstractStorage {
     }
 
     @Override
-    protected void updateResume(Object searchKey, Resume r) {
-        saveResume(r, searchKey);
-        mapStorage.get(r.getUuid());
+    protected void updateResume(Object searchKey, Resume resume) {
+        mapStorage.replace(resume.getUuid(),resume);
     }
 }

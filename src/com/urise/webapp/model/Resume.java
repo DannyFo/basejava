@@ -7,7 +7,16 @@ import java.util.UUID;
  */
 public class Resume  {
 
-    // Unique identifier
+    public Resume(String fullName) {
+        this.fullName = fullName;
+        this.uuid = (UUID.randomUUID().toString());
+    }
+
+    public Resume(String uuid, String fullName) {
+        this.uuid = uuid;
+        this.fullName = fullName;
+    }
+
     private final String uuid;
 
     private String fullName;
@@ -17,20 +26,6 @@ public class Resume  {
     }
 
     public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public Resume() {
-        this(UUID.randomUUID().toString());
-    }
-
-
-    public Resume(String fullName) {
-        this.uuid = fullName;
-    }
-
-    public Resume(String uuid, String fullName) {
-        this.uuid = uuid;
         this.fullName = fullName;
     }
 

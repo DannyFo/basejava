@@ -17,7 +17,7 @@ public class AbstractArrayStorageTest {
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
     private static final String DUMMY = "uuid4";//для проверок
-    private static final Resume NOT_SAVED_TEST_RESUME = new Resume(DUMMY);//для проверок
+    private static final Resume NOT_SAVED_TEST_RESUME = new Resume(DUMMY,"z");//для проверок
 
     protected AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
@@ -43,7 +43,7 @@ public class AbstractArrayStorageTest {
 
     @Test
     public void update() {
-        Resume r1 = new Resume(UUID_3);
+        Resume r1 = new Resume(UUID_3,"b");
         storage.update(r1);
         Assert.assertSame(storage.get(UUID_3), r1);
     }
@@ -58,7 +58,7 @@ public class AbstractArrayStorageTest {
         Resume[] array = new Resume[]{
             new Resume(UUID_2, "a"),
             new Resume(UUID_1, "b"),
-            new Resume(UUID_3, "b"),};
+            new Resume(UUID_3, "b")};
         Assert.assertArrayEquals(array, storage.getAllSorted().toArray());
         Assert.assertEquals(3, storage.getAllSorted().size());
     }
@@ -67,7 +67,7 @@ public class AbstractArrayStorageTest {
     public void save() {
         storage.save(NOT_SAVED_TEST_RESUME);
         Assert.assertEquals(4, storage.size());
-        Assert.assertEquals(new Resume(DUMMY), storage.get(DUMMY));
+        Assert.assertEquals(new Resume(DUMMY,"z"), storage.get(DUMMY));
     }
 
     @Test(expected = StorageException.class)
@@ -85,7 +85,7 @@ public class AbstractArrayStorageTest {
 
     @Test(expected = ExistStorageException.class)
     public void saveWithExistResume() {
-        Resume r1 = new Resume(UUID_3);
+        Resume r1 = new Resume(UUID_3, "b");
         storage.save(r1);
     }
 
@@ -108,7 +108,7 @@ public class AbstractArrayStorageTest {
 
     @Test
     public void get() {
-        Assert.assertEquals(new Resume(UUID_3), storage.get(UUID_3));
+        Assert.assertEquals(new Resume(UUID_3, "b"), storage.get(UUID_3));
     }
 
     @Test(expected = NotExistStorageException.class)

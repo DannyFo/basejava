@@ -3,7 +3,7 @@ package com.urise.webapp.storage;
 import com.urise.webapp.exeption.ExistStorageException;
 import com.urise.webapp.exeption.NotExistStorageException;
 import com.urise.webapp.model.Resume;
-
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -12,46 +12,40 @@ import java.util.List;
  */
 public abstract class AbstractStorage implements Storage {
 
-    @Override
-    public abstract void clear();
+    private static final Comparator<Resume> RESUME_COMPARATOR_BY_FULLNAME = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
 
     @Override
-    public void save(Resume r) {
-        Object searchKey = getNotExistedKey(r.getUuid());
-        saveResume(r, searchKey);
+    public void save(Resume resume) {
+        Object searchKey = getNotExistedSearchKey(resume.getUuid());
+        saveResume(resume, searchKey);
     }
 
     @Override
     public Resume get(String uuid) {
-        Object searchKey = getExistedKey(uuid);
+        Object searchKey = getExistedSearchKey(uuid);
         return returnResume(searchKey);
     }
 
     @Override
     public void delete(String uuid) {
-        Object searchKey = getExistedKey(uuid);
+        Object searchKey = getExistedSearchKey(uuid);
         deleteResume(searchKey);
     }
 
     @Override
-    public void update(Resume r) {
-        Object searchKey = getExistedKey(r.getUuid());
-        updateResume(searchKey, r);
+    public void update(Resume resume) {
+        Object searchKey = getExistedSearchKey(resume.getUuid());
+        updateResume(searchKey, resume);
     }
 
     @Override
-    public abstract List<Resume> getAllSorted();
+    public List<Resume> getAllSorted(){
+        List<Resume> allSortedList = getArrayList();
+        allSortedList.sort(RESUME_COMPARATOR_BY_FULLNAME);
+        return allSortedList;
+    }
 
-    @Override
-    public abstract int size();
-
-//    @Override
-//    public Resume getByFullName(String fullName){//НОВЫЙ МЕТОД но он мне видимо пока не нужен!
-//        Object searchKey = searchFullName(fullName);
-//        return returnResume(searchKey);
-//    }
-
-    private Object getExistedKey(String uuid) {
+    private Object getExistedSearchKey(String uuid) {
         Object searchKey = searchUuid(uuid);
         if (!validForExistResume(searchKey)) {
             throw new NotExistStorageException(uuid);
@@ -59,7 +53,7 @@ public abstract class AbstractStorage implements Storage {
         return searchKey;
     }
 
-    private Object getNotExistedKey(String uuid) {
+    private Object getNotExistedSearchKey(String uuid) {
         Object searchKey = searchUuid(uuid);
         if (validForExistResume(searchKey)) {
             throw new ExistStorageException(uuid);
@@ -70,15 +64,15 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract Object searchUuid(String uuid);
 
-//    protected abstract Object searchFullName(String fullName);
-
     protected abstract boolean validForExistResume(Object searchKey);
 
-    protected abstract void saveResume(Resume r, Object searchKey);
+    protected abstract void saveResume(Resume resume, Object searchKey);
 
     protected abstract Resume returnResume(Object searchKey);
 
     protected abstract void deleteResume(Object searchKey);
 
-    protected abstract void updateResume(Object searchKey, Resume r);
+    protected abstract void updateResume(Object searchKey, Resume resume);
+
+    protected abstract List<Resume> getArrayList();
 }

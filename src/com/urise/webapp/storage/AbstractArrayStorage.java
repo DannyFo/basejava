@@ -11,8 +11,6 @@ import java.util.*;
 public abstract class AbstractArrayStorage extends AbstractStorage {
     protected static final int STORAGE_LIMIT = 10_000;
 
-    private static final Comparator<Resume> RESUME_COMPARATOR_BY_FULLNAME = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
-
     protected int counter = 0;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
 
@@ -23,10 +21,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    public List<Resume> getAllSorted() {
-        List<Resume> allSortedList = new ArrayList<>(Arrays.asList(Arrays.copyOf(storage, counter)));
-        allSortedList.sort(RESUME_COMPARATOR_BY_FULLNAME);
-        return allSortedList;
+    protected List<Resume> getArrayList () {
+        return new ArrayList<>(Arrays.asList(Arrays.copyOf(storage, counter)));
     }
 
     @Override
@@ -35,11 +31,11 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void saveResume(Resume r, Object searchKey) {
+    protected void saveResume(Resume resume, Object searchKey) {
         if (counter == STORAGE_LIMIT) {
-            throw new StorageException("Storage overflow", r.getUuid());
+            throw new StorageException("Storage overflow", resume.getUuid());
         }
-        saveTargetResume(r, (Integer) searchKey);
+        saveTargetResume(resume, (Integer) searchKey);
         counter++;
     }
 
@@ -56,8 +52,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void updateResume(Object searchKey, Resume r) {
-        storage[(Integer) searchKey] = r;
+    protected void updateResume(Object searchKey, Resume resume) {
+        storage[(Integer) searchKey] = resume;
     }
 
     @Override
@@ -66,7 +62,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
 
-    protected abstract void saveTargetResume(Resume r, int searchKey);
+    protected abstract void saveTargetResume(Resume resume, int searchKey);
 
     protected abstract void deleteTargetResume(int searchKey);
 
