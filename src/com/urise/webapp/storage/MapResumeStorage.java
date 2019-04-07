@@ -18,9 +18,10 @@ public class MapResumeStorage extends AbstractStorage {
     }
 
     @Override
-    protected List<Resume> getArrayList () {
+    protected List<Resume> getList() {
         return new ArrayList<>(mapStorage.values());
     }
+
     @Override
     public int size() {
         return mapStorage.size();
@@ -43,17 +44,18 @@ public class MapResumeStorage extends AbstractStorage {
 
     @Override
     protected Resume returnResume(Object searchKey) {
-        return mapStorage.get(searchKey);
+        Resume resumeForAction = (Resume) searchKey;
+        return mapStorage.get(resumeForAction.getUuid());
     }
 
     @Override
     protected void deleteResume(Object searchKey) {
-        mapStorage.remove(searchKey);
+        Resume resumeForAction = (Resume) searchKey;
+        mapStorage.remove(resumeForAction.getUuid());
     }
 
     @Override
     protected void updateResume(Object searchKey, Resume resume) {
-        saveResume(resume, searchKey);
-        mapStorage.get(resume.getUuid());
+        mapStorage.replace(resume.getUuid(),resume);
     }
 }

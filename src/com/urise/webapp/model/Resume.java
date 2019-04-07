@@ -7,6 +7,10 @@ import java.util.UUID;
  */
 public class Resume  {
 
+    private final String uuid;
+
+    private String fullName;
+
     public Resume(String fullName) {
         this.fullName = fullName;
         this.uuid = (UUID.randomUUID().toString());
@@ -16,10 +20,6 @@ public class Resume  {
         this.uuid = uuid;
         this.fullName = fullName;
     }
-
-    private final String uuid;
-
-    private String fullName;
 
     public String getFullName() {
         return fullName;
@@ -40,7 +40,7 @@ public class Resume  {
 
         Resume resume = (Resume) o;
 
-        return uuid.equals(resume.uuid);
+        return resume.equals(resume);
     }
 
     @Override

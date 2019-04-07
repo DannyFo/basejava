@@ -8,7 +8,7 @@ import com.urise.webapp.storage.Storage;
  * Test for your com.urise.webapp.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    private final static Storage ARRAY_STORAGE = new MapResumeStorage();// delete на пока мапе не работает
+    private final static Storage ARRAY_STORAGE = new MapResumeStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume("uuid1","b");

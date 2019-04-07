@@ -40,7 +40,7 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public List<Resume> getAllSorted(){
-        List<Resume> allSortedList = getArrayList();
+        List<Resume> allSortedList = getList();
         allSortedList.sort(RESUME_COMPARATOR_BY_FULLNAME);
         return allSortedList;
     }
@@ -74,5 +74,5 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract void updateResume(Object searchKey, Resume resume);
 
-    protected abstract List<Resume> getArrayList();
+    protected abstract List<Resume> getList();
 }

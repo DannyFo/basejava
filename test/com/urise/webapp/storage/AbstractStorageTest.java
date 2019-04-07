@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import static com.urise.webapp.storage.AbstractArrayStorage.STORAGE_LIMIT;
 
-public class AbstractArrayStorageTest {
+public class AbstractStorageTest {
     private Storage storage;
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
@@ -19,7 +19,7 @@ public class AbstractArrayStorageTest {
     private static final String DUMMY = "uuid4";//для проверок
     private static final Resume NOT_SAVED_TEST_RESUME = new Resume(DUMMY,"z");//для проверок
 
-    protected AbstractArrayStorageTest(Storage storage) {
+    protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
     }
 
