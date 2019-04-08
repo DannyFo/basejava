@@ -24,7 +24,7 @@ public class AbstractStorageTest {
     }
 
     @Before
-    public void setUp() {// надо делать с этим конструктором: public Resume(String uuid, String fullName)
+    public void setUp() {
         storage.save(new Resume(UUID_1, "b"));
         storage.save(new Resume(UUID_2, "a"));
         storage.save(new Resume(UUID_3, "b"));
@@ -54,7 +54,7 @@ public class AbstractStorageTest {
     }
 
     @Test
-    public void getAllSorted() { // надо делать с этим конструктором: public Resume(String uuid, String fullName)
+    public void getAllSorted() {
         Resume[] array = new Resume[]{
             new Resume(UUID_2, "a"),
             new Resume(UUID_1, "b"),
