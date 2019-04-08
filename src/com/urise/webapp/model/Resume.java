@@ -45,7 +45,7 @@ public class Resume  {
 
     @Override
     public int hashCode() {
-        return uuid.hashCode();
+        return uuid.hashCode() + fullName.hashCode();
     }
 
     @Override
