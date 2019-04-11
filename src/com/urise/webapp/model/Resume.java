@@ -1,5 +1,6 @@
 package com.urise.webapp.model;
 
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -11,14 +12,15 @@ public class Resume  {
 
     private String fullName;
 
-    public Resume(String fullName) {
-        this.fullName = fullName;
-        this.uuid = (UUID.randomUUID().toString());
-    }
+
 
     public Resume(String uuid, String fullName) {
-        this.uuid = uuid;
         this.fullName = fullName;
+        this.uuid = uuid;
+    }
+
+    public Resume(String fullName) {
+        this(UUID.randomUUID().toString(), fullName);
     }
 
     public String getFullName() {
@@ -33,6 +35,7 @@ public class Resume  {
         return uuid;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -40,17 +43,14 @@ public class Resume  {
 
         Resume resume = (Resume) o;
 
-        return resume.equals(resume);
+        if (!Objects.equals(uuid, resume.uuid)) return false;
+        return Objects.equals(fullName, resume.fullName);
     }
 
     @Override
     public int hashCode() {
-        return uuid.hashCode() + fullName.hashCode();
+        int result = uuid != null ? uuid.hashCode() : 0;
+        result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
+        return result;
     }
-
-    @Override
-    public String toString() {
-        return uuid;
-    }
-
 }

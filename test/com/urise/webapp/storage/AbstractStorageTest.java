@@ -2,22 +2,25 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.exeption.ExistStorageException;
 import com.urise.webapp.exeption.NotExistStorageException;
-import com.urise.webapp.exeption.StorageException;
 import com.urise.webapp.model.Resume;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.urise.webapp.storage.AbstractArrayStorage.STORAGE_LIMIT;
-
 public class AbstractStorageTest {
-    private Storage storage;
+    protected Storage storage;
+
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
     private static final String DUMMY = "uuid4";//для проверок
-    private static final Resume NOT_SAVED_TEST_RESUME = new Resume(DUMMY,"z");//для проверок
+
+    private static final Resume RESUME_1 = new Resume(UUID_1, "b");
+    private static final Resume RESUME_2 = new Resume(UUID_2, "a");
+    private static final Resume RESUME_3 = new Resume(UUID_3, "b");
+
+    protected static final Resume NOT_SAVED_TEST_RESUME = new Resume(DUMMY,"z");//для проверок
 
     protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -25,9 +28,9 @@ public class AbstractStorageTest {
 
     @Before
     public void setUp() {
-        storage.save(new Resume(UUID_1, "b"));
-        storage.save(new Resume(UUID_2, "a"));
-        storage.save(new Resume(UUID_3, "b"));
+        storage.save(RESUME_1);
+        storage.save(RESUME_2);
+        storage.save(RESUME_3);
     }
 
     @After
@@ -68,19 +71,6 @@ public class AbstractStorageTest {
         storage.save(NOT_SAVED_TEST_RESUME);
         Assert.assertEquals(4, storage.size());
         Assert.assertEquals(new Resume(DUMMY,"z"), storage.get(DUMMY));
-    }
-
-    @Test(expected = StorageException.class)
-    public void saveWithOverflow() {
-        clear();
-        try {
-            for (int i = 0; i < STORAGE_LIMIT; i++) {
-                storage.save(new Resume(i + "uuid"));
-            }
-        } catch (StorageException e) {
-            Assert.fail("Storage Overflow");
-        }
-        storage.save(NOT_SAVED_TEST_RESUME);
     }
 
     @Test(expected = ExistStorageException.class)
