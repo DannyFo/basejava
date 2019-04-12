@@ -6,21 +6,19 @@ import java.util.UUID;
 /**
  * Initial resume class
  */
-public class Resume  {
+public class Resume {
 
     private final String uuid;
 
     private String fullName;
 
-
+    public Resume(String fullName) {
+        this(UUID.randomUUID().toString(), fullName);
+    }
 
     public Resume(String uuid, String fullName) {
         this.fullName = fullName;
         this.uuid = uuid;
-    }
-
-    public Resume(String fullName) {
-        this(UUID.randomUUID().toString(), fullName);
     }
 
     public String getFullName() {
@@ -34,7 +32,6 @@ public class Resume  {
     public String getUuid() {
         return uuid;
     }
-
 
     @Override
     public boolean equals(Object o) {

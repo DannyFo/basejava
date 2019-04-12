@@ -3,6 +3,7 @@ package com.urise.webapp.storage;
 import com.urise.webapp.exeption.ExistStorageException;
 import com.urise.webapp.exeption.NotExistStorageException;
 import com.urise.webapp.model.Resume;
+
 import java.util.Comparator;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public abstract class AbstractStorage implements Storage {
     }
 
     @Override
-    public List<Resume> getAllSorted(){
+    public List<Resume> getAllSorted() {
         List<Resume> allSortedList = getList();
         allSortedList.sort(RESUME_COMPARATOR);
         return allSortedList;

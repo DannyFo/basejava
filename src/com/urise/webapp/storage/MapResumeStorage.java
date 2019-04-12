@@ -8,8 +8,7 @@ import java.util.*;
 public class MapResumeStorage extends AbstractStorage {
 
 
-
-    private Map<String , Resume> mapStorage = new HashMap<>();
+    private Map<String, Resume> mapStorage = new HashMap<>();
 
 
     @Override
@@ -56,6 +55,6 @@ public class MapResumeStorage extends AbstractStorage {
 
     @Override
     protected void updateResume(Object searchKey, Resume resume) {
-        mapStorage.replace(resume.getUuid(),resume);
+        mapStorage.replace(resume.getUuid(), resume);
     }
 }

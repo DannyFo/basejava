@@ -52,6 +52,6 @@ public class MapUuidStorage extends AbstractStorage {
 
     @Override
     protected void updateResume(Object searchKey, Resume resume) {
-        mapStorage.replace(resume.getUuid(),resume);
+        mapStorage.replace(resume.getUuid(), resume);
     }
 }
