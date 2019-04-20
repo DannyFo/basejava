@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * Array based storage for Resumes
  */
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     protected static final int STORAGE_LIMIT = 10_000;
 
     protected int counter = 0;
@@ -31,34 +31,34 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void saveResume(Resume resume, Object searchKey) {
+    protected void saveResume(Resume resume, Integer searchKey) {
         if (counter == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", resume.getUuid());
         }
-        saveTargetResume(resume, (Integer) searchKey);
+        saveTargetResume(resume, searchKey);
         counter++;
     }
 
     @Override
-    protected Resume returnResume(Object searchKey) {//ok
-        return storage[(Integer) searchKey];
+    protected Resume returnResume(Integer searchKey) {//ok
+        return storage[searchKey];
     }
 
     @Override
-    protected void deleteResume(Object searchKey) {
-        deleteTargetResume((Integer) searchKey);
+    protected void deleteResume(Integer searchKey) {
+        deleteTargetResume(searchKey);
         storage[counter - 1] = null;
         counter--;
     }
 
     @Override
-    protected void updateResume(Object searchKey, Resume resume) {
-        storage[(Integer) searchKey] = resume;
+    protected void updateResume(Integer searchKey, Resume resume) {
+        storage[searchKey] = resume;
     }
 
     @Override
-    protected boolean validForExistResume(Object searchKey) {
-        return (Integer) searchKey >= 0;
+    protected boolean validForExistResume(Integer searchKey) {
+        return searchKey >= 0;
     }
 
 

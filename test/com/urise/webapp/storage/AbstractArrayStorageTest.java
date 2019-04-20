@@ -13,7 +13,6 @@ public class AbstractArrayStorageTest extends AbstractStorageTest {
         super(storage);
     }
 
-
     @Test(expected = StorageException.class)
     public void saveWithOverflow() {
         clear();
