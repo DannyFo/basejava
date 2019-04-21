@@ -3,30 +3,25 @@ package com.urise.webapp.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SectionTypeListString extends Section<Integer>{
-    public SectionTypeListString() {
-        super();
-    }
+public class SectionTypeListString extends Section{
 
     protected List<String> listSentence = new ArrayList<>();
 
-    @Override
     public List getPosition() {
         return new ArrayList<>(listSentence);
     }
 
-    @Override
-    public void AddPosition(Integer searchKey, String sentence) {
+    public void AddPosition(String sentence) {
         listSentence.add(sentence);
     }
 
-    @Override
-    public void UpdatePosition(Integer searchKey, String sentence) {
-        listSentence.set(searchKey, sentence);
+    public void UpdatePosition(String sentence) {
+        listSentence.set(listSentence.indexOf(sentence), sentence);
     }
 
-    @Override
-    public void RemovePosition(Integer searchKey) {
-        listSentence.remove(searchKey);
+    public void RemovePosition(String sentence) {
+        listSentence.remove(listSentence.indexOf(sentence));
     }
+
+
 }

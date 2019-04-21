@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SectionTypeMapString extends Section<String>{
+public class SectionTypeMapString extends Section{
 
     public SectionTypeMapString() {
         super();
@@ -13,27 +13,22 @@ public class SectionTypeMapString extends Section<String>{
 
     protected Map<String,String> mapContent = new HashMap<>();
 
-    @Override
     public List getPosition() {//возвращает сразу все позиции
         List<String> list = new ArrayList<>();
         for (Map.Entry<String,String> entry: mapContent.entrySet()) {
-            list.add(entry.getKey() + entry.getValue());
+            list.add(entry.getKey() +"  "+ entry.getValue());
         }
         return list;
     }
 
-
-    @Override
-    public void AddPosition(String searchKey, String sentence) {
-        mapContent.put(searchKey, sentence);
+    public void AddPosition(String title, String sentence) {
+        mapContent.put(title, sentence);
     }
 
-    @Override
-    public void UpdatePosition(String searchKey, String sentence) {
-        mapContent.replace(searchKey, sentence);
+    public void UpdatePosition(String title, String sentence) {
+        mapContent.replace(title, sentence);
     }
 
-    @Override
     public void RemovePosition(String title) {
         mapContent.remove(title);
     }

@@ -1,5 +1,6 @@
 package com.urise.webapp.model;
 
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
@@ -15,6 +16,10 @@ public class Resume {
     private final String uuid;
 
     private final String fullName;
+
+    public EnumMap<SectionType, Section> sectionMap = new EnumMap<SectionType, Section>(SectionType.class);
+
+    private HashMap<ContactType, Section> contactMap = new HashMap<>();// переделать в енум мапу
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -39,28 +44,67 @@ public class Resume {
         return uuid;
     }
 
-    public HashMap<SectionType, Section> sectionHashMap = new HashMap<>();
-
-    public void sectionHashMap() {
-        sectionHashMap.put(PERSONAL, new SectionTypeString());
-        sectionHashMap.put(OBJECTIVE, new SectionTypeString());
-        sectionHashMap.put(ACHIEVEMENT, new SectionTypeListString());
-        sectionHashMap.put(QUALIFICATIONS, new SectionTypeListString());
-        sectionHashMap.put(EXPERIENCE, new SectionTypeMapString());
-        sectionHashMap.put(EDUCATION, new SectionTypeMapString());
-
+    public void createSection (SectionType type, String firstSentence) {
+        switch (type){
+            case PERSONAL:
+                sectionMap.put(PERSONAL,new SectionTypeString());
+                ((SectionTypeString)sectionMap.get(PERSONAL)).AddPosition(firstSentence);
+                break;
+            case OBJECTIVE:
+                sectionMap.put(OBJECTIVE,new SectionTypeString());
+                ((SectionTypeString)sectionMap.get(OBJECTIVE)).AddPosition(firstSentence);
+                break;
+            case ACHIEVEMENT:
+                sectionMap.put(ACHIEVEMENT, new SectionTypeListString());
+                ((SectionTypeListString)sectionMap.get(ACHIEVEMENT)).AddPosition(firstSentence);
+                break;
+            case QUALIFICATIONS:
+                sectionMap.put(QUALIFICATIONS, new SectionTypeListString());
+                ((SectionTypeListString)sectionMap.get(QUALIFICATIONS)).AddPosition(firstSentence);
+                break;
+        }
+    }
+    public void addToSection(SectionType type, String sentence) {
+        switch (type){
+            case ACHIEVEMENT:
+                ((SectionTypeListString)sectionMap.get(ACHIEVEMENT)).AddPosition(sentence);
+                break;
+            case QUALIFICATIONS:
+                ((SectionTypeListString)sectionMap.get(QUALIFICATIONS)).AddPosition(sentence);
+                break;
+        }
     }
 
+    public void createSection (SectionType type, String firstTitle, String sentence){
+        switch (type){
+            case EXPERIENCE:
+                sectionMap.put(EXPERIENCE, new SectionTypeMapString());
+                ((SectionTypeMapString)sectionMap.get(EXPERIENCE)).AddPosition(firstTitle, sentence);
+                break;
+            case EDUCATION:
+                sectionMap.put(EDUCATION, new SectionTypeMapString());
+                ((SectionTypeMapString)sectionMap.get(EDUCATION)).AddPosition(firstTitle, sentence);
+                break;
+        }
+    }
 
-    public HashMap<ContactType, Section> contactHashMap = new HashMap<>();
+    public void addToSection(SectionType type, String title, String sentence) {
+        switch (type){
+            case EXPERIENCE:
+                ((SectionTypeMapString)sectionMap.get(EXPERIENCE)).AddPosition(title, sentence);
+                break;
+            case EDUCATION:
+                ((SectionTypeMapString)sectionMap.get(EDUCATION)).AddPosition(title, sentence);
+                break;
+        }
+    }
 
     public void contactHashMap() {
-        contactHashMap.put(TELEPHONE, new SectionTypeString());
-        contactHashMap.put(SKYPE, new SectionTypeString());
-        contactHashMap.put(MAIL, new SectionTypeString());
-        contactHashMap.put(OTHER, new SectionTypeListString());
+        contactMap.put(TELEPHONE, new SectionTypeString());
+        contactMap.put(SKYPE, new SectionTypeString());
+        contactMap.put(MAIL, new SectionTypeString());
+        contactMap.put(OTHER, new SectionTypeListString());
     }
-
 
     @Override
     public boolean equals(Object o) {

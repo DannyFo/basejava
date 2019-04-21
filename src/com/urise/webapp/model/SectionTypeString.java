@@ -1,32 +1,22 @@
 package com.urise.webapp.model;
 
-import java.util.Arrays;
-import java.util.List;
-
-public class SectionTypeString extends Section<Integer> {
-    public SectionTypeString() {
-        super();
-    }
+public class SectionTypeString extends Section {
 
     protected String stringSentence;
 
-    @Override
-    public List getPosition() {
-        return Arrays.asList(stringSentence);
+    public String getPosition() {
+        return stringSentence;
     }
 
-    @Override
-    public void AddPosition(Integer searchKey, String sentence) {
+    public void AddPosition(String sentence) {
         this.stringSentence = sentence;
     }
 
-    @Override
-    public void UpdatePosition(Integer searchKey, String sentence) {
+    public void UpdatePosition(String sentence) {
         this.stringSentence = sentence;
     }
 
-    @Override
-    public void RemovePosition(Integer searchKey) {
+    public void RemovePosition() {
         stringSentence = null;
     }
 }
