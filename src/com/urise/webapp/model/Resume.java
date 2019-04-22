@@ -1,12 +1,8 @@
 package com.urise.webapp.model;
 
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
-
-import static com.urise.webapp.model.ContactType.*;
-import static com.urise.webapp.model.SectionType.*;
 
 /**
  * Initial resume class
@@ -17,9 +13,9 @@ public class Resume {
 
     private final String fullName;
 
-    public EnumMap<SectionType, Section> sectionMap = new EnumMap<SectionType, Section>(SectionType.class);
+    public EnumMap<SectionType, Section> sectionMap = new EnumMap<>(SectionType.class);
 
-    private HashMap<ContactType, Section> contactMap = new HashMap<>();// переделать в енум мапу
+    public EnumMap<ContactType, Section> contactMap = new EnumMap<>(ContactType.class);
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -44,68 +40,6 @@ public class Resume {
         return uuid;
     }
 
-    public void createSection (SectionType type, String firstSentence) {
-        switch (type){
-            case PERSONAL:
-                sectionMap.put(PERSONAL,new SectionTypeString());
-                ((SectionTypeString)sectionMap.get(PERSONAL)).AddPosition(firstSentence);
-                break;
-            case OBJECTIVE:
-                sectionMap.put(OBJECTIVE,new SectionTypeString());
-                ((SectionTypeString)sectionMap.get(OBJECTIVE)).AddPosition(firstSentence);
-                break;
-            case ACHIEVEMENT:
-                sectionMap.put(ACHIEVEMENT, new SectionTypeListString());
-                ((SectionTypeListString)sectionMap.get(ACHIEVEMENT)).AddPosition(firstSentence);
-                break;
-            case QUALIFICATIONS:
-                sectionMap.put(QUALIFICATIONS, new SectionTypeListString());
-                ((SectionTypeListString)sectionMap.get(QUALIFICATIONS)).AddPosition(firstSentence);
-                break;
-        }
-    }
-    public void addToSection(SectionType type, String sentence) {
-        switch (type){
-            case ACHIEVEMENT:
-                ((SectionTypeListString)sectionMap.get(ACHIEVEMENT)).AddPosition(sentence);
-                break;
-            case QUALIFICATIONS:
-                ((SectionTypeListString)sectionMap.get(QUALIFICATIONS)).AddPosition(sentence);
-                break;
-        }
-    }
-
-    public void createSection (SectionType type, String firstTitle, String sentence){
-        switch (type){
-            case EXPERIENCE:
-                sectionMap.put(EXPERIENCE, new SectionTypeMapString());
-                ((SectionTypeMapString)sectionMap.get(EXPERIENCE)).AddPosition(firstTitle, sentence);
-                break;
-            case EDUCATION:
-                sectionMap.put(EDUCATION, new SectionTypeMapString());
-                ((SectionTypeMapString)sectionMap.get(EDUCATION)).AddPosition(firstTitle, sentence);
-                break;
-        }
-    }
-
-    public void addToSection(SectionType type, String title, String sentence) {
-        switch (type){
-            case EXPERIENCE:
-                ((SectionTypeMapString)sectionMap.get(EXPERIENCE)).AddPosition(title, sentence);
-                break;
-            case EDUCATION:
-                ((SectionTypeMapString)sectionMap.get(EDUCATION)).AddPosition(title, sentence);
-                break;
-        }
-    }
-
-    public void contactHashMap() {
-        contactMap.put(TELEPHONE, new SectionTypeString());
-        contactMap.put(SKYPE, new SectionTypeString());
-        contactMap.put(MAIL, new SectionTypeString());
-        contactMap.put(OTHER, new SectionTypeListString());
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -114,13 +48,18 @@ public class Resume {
         Resume resume = (Resume) o;
 
         if (!uuid.equals(resume.uuid)) return false;
-        return fullName.equals(resume.fullName);
+        if (!fullName.equals(resume.fullName)) return false;
+        if (sectionMap != null ? !sectionMap.equals(resume.sectionMap) : resume.sectionMap != null) return false;
+        return contactMap != null ? contactMap.equals(resume.contactMap) : resume.contactMap == null;
+
     }
 
     @Override
     public int hashCode() {
         int result = uuid.hashCode();
         result = 31 * result + fullName.hashCode();
+        result = 31 * result + (sectionMap != null ? sectionMap.hashCode() : 0);
+        result = 31 * result + (contactMap != null ? contactMap.hashCode() : 0);
         return result;
     }
 

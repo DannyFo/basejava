@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SectionTypeMapString extends Section{
+public class SectionMap extends Section{
 
-    public SectionTypeMapString() {
+    public SectionMap() {
         super();
     }
 
@@ -16,20 +16,21 @@ public class SectionTypeMapString extends Section{
     public List getPosition() {//возвращает сразу все позиции
         List<String> list = new ArrayList<>();
         for (Map.Entry<String,String> entry: mapContent.entrySet()) {
-            list.add(entry.getKey() +"  "+ entry.getValue());
+            list.add(entry.getKey());
+            list.add(entry.getValue());
         }
         return list;
     }
 
-    public void AddPosition(String title, String sentence) {
+    public void addPosition(String title, String sentence) {
         mapContent.put(title, sentence);
     }
 
-    public void UpdatePosition(String title, String sentence) {
+    public void updatePosition(String title, String sentence) {
         mapContent.replace(title, sentence);
     }
 
-    public void RemovePosition(String title) {
+    public void removePosition(String title) {
         mapContent.remove(title);
     }
 }

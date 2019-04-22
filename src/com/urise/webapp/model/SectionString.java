@@ -1,6 +1,6 @@
 package com.urise.webapp.model;
 
-public class SectionTypeString extends Section {
+public class SectionString extends Section {
 
     protected String stringSentence;
 
@@ -8,15 +8,15 @@ public class SectionTypeString extends Section {
         return stringSentence;
     }
 
-    public void AddPosition(String sentence) {
+    public void addPosition(String sentence) {
         this.stringSentence = sentence;
     }
 
-    public void UpdatePosition(String sentence) {
+    public void updatePosition(String sentence) {
         this.stringSentence = sentence;
     }
 
-    public void RemovePosition() {
+    public void removePosition() {
         stringSentence = null;
     }
 }

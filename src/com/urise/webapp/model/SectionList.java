@@ -3,7 +3,7 @@ package com.urise.webapp.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SectionTypeListString extends Section{
+public class SectionList extends Section {
 
     protected List<String> listSentence = new ArrayList<>();
 
@@ -11,15 +11,15 @@ public class SectionTypeListString extends Section{
         return new ArrayList<>(listSentence);
     }
 
-    public void AddPosition(String sentence) {
+    public void addPosition(String sentence) {
         listSentence.add(sentence);
     }
 
-    public void UpdatePosition(String sentence) {
+    public void updatePosition(String sentence) {
         listSentence.set(listSentence.indexOf(sentence), sentence);
     }
 
-    public void RemovePosition(String sentence) {
+    public void removePosition(String sentence) {
         listSentence.remove(listSentence.indexOf(sentence));
     }
 
