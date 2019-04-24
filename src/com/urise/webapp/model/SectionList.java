@@ -2,26 +2,35 @@ package com.urise.webapp.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class SectionList extends Section {
+public class SectionList extends AbstractSection {
 
-    protected List<String> listSentence = new ArrayList<>();
+    protected List<String> listText = new ArrayList<>();
 
-    public List getPosition() {
-        return new ArrayList<>(listSentence);
+    public SectionList() {
     }
 
-    public void addPosition(String sentence) {
-        listSentence.add(sentence);
+    public List getListText() {
+        return new ArrayList<>(listText);
     }
 
-    public void updatePosition(String sentence) {
-        listSentence.set(listSentence.indexOf(sentence), sentence);
+    public void addPosition(String text) {
+        listText.add(text);
     }
 
-    public void removePosition(String sentence) {
-        listSentence.remove(listSentence.indexOf(sentence));
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SectionList that = (SectionList) o;
+
+        return Objects.equals(listText, that.listText);
     }
 
-
+    @Override
+    public int hashCode() {
+        return listText != null ? listText.hashCode() : 0;
+    }
 }

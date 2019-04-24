@@ -13,9 +13,9 @@ public class Resume {
 
     private final String fullName;
 
-    public EnumMap<SectionType, Section> sectionMap = new EnumMap<>(SectionType.class);
+    public EnumMap<SectionType, AbstractSection> sectionMap = new EnumMap<>(SectionType.class);
 
-    public EnumMap<ContactType, Section> contactMap = new EnumMap<>(ContactType.class);
+    public EnumMap<ContactType, AbstractSection> contactMap = new EnumMap<>(ContactType.class);
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
