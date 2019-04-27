@@ -1,6 +1,7 @@
 package com.urise.webapp.model;
 
 import java.util.EnumMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -13,9 +14,9 @@ public class Resume {
 
     private final String fullName;
 
-    public EnumMap<SectionType, AbstractSection> sectionMap = new EnumMap<>(SectionType.class);
+    public Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
 
-    public EnumMap<ContactType, AbstractSection> contactMap = new EnumMap<>(ContactType.class);
+    public Map<ContactType, AbstractSection> contacts = new EnumMap<>(ContactType.class);
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -49,8 +50,8 @@ public class Resume {
 
         if (!uuid.equals(resume.uuid)) return false;
         if (!fullName.equals(resume.fullName)) return false;
-        if (sectionMap != null ? !sectionMap.equals(resume.sectionMap) : resume.sectionMap != null) return false;
-        return contactMap != null ? contactMap.equals(resume.contactMap) : resume.contactMap == null;
+        if (!Objects.equals(sections, resume.sections)) return false;
+        return Objects.equals(contacts, resume.contacts);
 
     }
 
@@ -58,8 +59,8 @@ public class Resume {
     public int hashCode() {
         int result = uuid.hashCode();
         result = 31 * result + fullName.hashCode();
-        result = 31 * result + (sectionMap != null ? sectionMap.hashCode() : 0);
-        result = 31 * result + (contactMap != null ? contactMap.hashCode() : 0);
+        result = 31 * result + (sections != null ? sections.hashCode() : 0);
+        result = 31 * result + (contacts != null ? contacts.hashCode() : 0);
         return result;
     }
 

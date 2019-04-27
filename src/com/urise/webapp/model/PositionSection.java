@@ -4,20 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class SectionPosition extends AbstractSection {
+public class PositionSection extends AbstractSection {
 
-    public SectionPosition() {
+    private List<Position> listPosition;
+
+    public PositionSection(ArrayList<Position> listPosition) {
+        this.listPosition = listPosition;
     }
-
-    protected List<String> listPosition = new ArrayList<>();
 
     public List getPosition() {
         return new ArrayList<>(listPosition);
     }
 
     public void addPosition(Position position) {
-        listPosition.add(position.getTitle());
-        listPosition.add(position.getText());
+        listPosition.add(position);
     }
 
     @Override
@@ -25,7 +25,7 @@ public class SectionPosition extends AbstractSection {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        SectionPosition that = (SectionPosition) o;
+        PositionSection that = (PositionSection) o;
 
         return Objects.equals(listPosition, that.listPosition);
 

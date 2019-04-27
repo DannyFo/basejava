@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class SectionList extends AbstractSection {
+public class ListOfTextSection extends AbstractSection {
 
-    protected List<String> listText = new ArrayList<>();
+    private List<String> listText;
 
-    public SectionList() {
+    public ListOfTextSection(List<String> listText) {
+        this.listText = listText;
     }
 
     public List getListText() {
@@ -24,7 +25,7 @@ public class SectionList extends AbstractSection {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        SectionList that = (SectionList) o;
+        ListOfTextSection that = (ListOfTextSection) o;
 
         return Objects.equals(listText, that.listText);
     }

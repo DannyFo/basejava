@@ -2,11 +2,12 @@ package com.urise.webapp.model;
 
 import java.util.Objects;
 
-public class SimpleTextString extends AbstractSection {
+public class SimpleTextSection extends AbstractSection {
 
-    protected String text;
+    private String text;
 
-    public SimpleTextString() {
+    public SimpleTextSection(String text) {
+        this.text = text;
     }
 
     public String getText() {
@@ -22,7 +23,7 @@ public class SimpleTextString extends AbstractSection {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        SimpleTextString that = (SimpleTextString) o;
+        SimpleTextSection that = (SimpleTextSection) o;
 
         return Objects.equals(text, that.text);
     }
