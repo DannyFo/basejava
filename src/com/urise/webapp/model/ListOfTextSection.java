@@ -21,6 +21,14 @@ public class ListOfTextSection extends AbstractSection {
     }
 
     @Override
+    public void sectionOutput() {
+        List<String> list = new ArrayList<>(listText);
+        for (String string : list) {
+            System.out.println("- " + string);
+        }
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

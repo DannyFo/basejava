@@ -10,72 +10,6 @@ import static com.urise.webapp.model.SectionType.*;
 
 public class ResumeTestData {
 
-    public static void contactOutput(ContactType type, Resume resume) {
-        List<String> list;
-        switch (type) {
-            case TELEPHONE:
-                System.out.println(((SimpleTextSection) resume.contacts.get(TELEPHONE)).getText());
-                break;
-            case SKYPE:
-                System.out.println(((SimpleTextSection) resume.contacts.get(SKYPE)).getText());
-                break;
-            case MAIL:
-                System.out.println(((SimpleTextSection) resume.contacts.get(MAIL)).getText());
-                break;
-            case OTHER:
-                list = ((ListOfTextSection) resume.contacts.get(OTHER)).getListText();
-                for (String string : list) {
-                    System.out.println("- " + string);
-                }
-                break;
-        }
-    }
-
-    public static void sectionOutput(SectionType type, Resume resume) {
-        List<String> list;
-        List<Position> listPosition;
-        switch (type) {
-            case OBJECTIVE:
-                System.out.println(((SimpleTextSection) resume.sections.get(OBJECTIVE)).getText());
-                break;
-            case PERSONAL:
-                System.out.println(((SimpleTextSection) resume.sections.get(PERSONAL)).getText());
-                break;
-            case ACHIEVEMENT:
-                list = ((ListOfTextSection) resume.sections.get(ACHIEVEMENT)).getListText();
-                for (String string : list) {
-                    System.out.println("* " + string);
-                }
-                break;
-            case QUALIFICATIONS:
-                list = ((ListOfTextSection) resume.sections.get(QUALIFICATIONS)).getListText();
-                for (String string : list) {
-                    System.out.println("* " + string);
-                }
-                break;
-            case EXPERIENCE:
-                listPosition = ((PositionSection) resume.sections.get(EXPERIENCE)).getPosition();
-                for (Position position : listPosition) {
-                    positionSectionOutput(position);
-                }
-                break;
-            case EDUCATION:
-                listPosition = ((PositionSection) resume.sections.get(EDUCATION)).getPosition();
-                for (Position position : listPosition) {
-                    positionSectionOutput(position);
-                }
-                break;
-        }
-    }
-
-    public static void positionSectionOutput(Position position) {
-        System.out.println(position.getTitle());
-        System.out.println(position.getUrl());
-        System.out.println(position.getStartDate().getMonthValue() + "/" + position.getStartDate().getYear() +
-                " - " + position.getFinishDate().getMonthValue() + "/" + position.getFinishDate().getYear());
-        System.out.println(position.getText());
-    }
-
     public static void main(String[] args) {
         Resume r1 = new Resume("Григорий Кислин");
 
@@ -190,12 +124,12 @@ public class ResumeTestData {
 
         for (ContactType type : ContactType.values()) {
             System.out.println(type.getTitle());
-            contactOutput(type, r1);
+            r1.contacts.get(type).sectionOutput();
         }
 
         for (SectionType type : SectionType.values()) {
             System.out.println(type.getTitle());
-            sectionOutput(type, r1);
+            r1.sections.get(type).sectionOutput();
         }
     }
 }

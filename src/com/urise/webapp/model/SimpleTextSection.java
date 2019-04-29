@@ -19,6 +19,11 @@ public class SimpleTextSection extends AbstractSection {
     }
 
     @Override
+    public void sectionOutput() {
+        System.out.println(text);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
