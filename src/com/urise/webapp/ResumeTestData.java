@@ -29,7 +29,7 @@ public class ResumeTestData {
         OtherContactsWithUrl.add(contact3);
         OtherContactsWithUrl.add(contact4);
 
-        SimpleTextContact telephone = new SimpleTextContact("+7(921) 855-0482");
+        ContactWithUrl telephone = new ContactWithUrl("+7(921) 855-0482", null);
         ContactWithUrl skype = new ContactWithUrl("grigory.kislin", "skype:grigory.kislin");
         ContactWithUrl mail = new ContactWithUrl("gkislin@yandex.ru", "gkislin@yandex.ru");
         ListOfContactsWithUrl other = new ListOfContactsWithUrl(OtherContactsWithUrl);
