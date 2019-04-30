@@ -2,7 +2,6 @@ package com.urise.webapp.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class PositionSection extends AbstractSection {
 
@@ -21,15 +20,10 @@ public class PositionSection extends AbstractSection {
     }
 
     @Override
-    public void sectionOutput() {
-        List<Position> list = new ArrayList<>(listPosition);
-        for (Position position : list) {
-            System.out.println(position.getTitle());
-            System.out.println(position.getUrl());
-            System.out.println(position.getStartDate().getMonthValue() + "/" + position.getStartDate().getYear() +
-                    " - " + position.getFinishDate().getMonthValue() + "/" + position.getFinishDate().getYear());
-            System.out.println(position.getText());
-        }
+    public String toString() {
+        return "PositionSection{" +
+                "listPosition=" + listPosition +
+                '}';
     }
 
     @Override
@@ -39,7 +33,7 @@ public class PositionSection extends AbstractSection {
 
         PositionSection that = (PositionSection) o;
 
-        return Objects.equals(listPosition, that.listPosition);
+        return listPosition != null ? listPosition.equals(that.listPosition) : that.listPosition == null;
 
     }
 

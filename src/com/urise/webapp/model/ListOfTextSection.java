@@ -2,7 +2,6 @@ package com.urise.webapp.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class ListOfTextSection extends AbstractSection {
 
@@ -16,16 +15,11 @@ public class ListOfTextSection extends AbstractSection {
         return new ArrayList<>(listText);
     }
 
-    public void addPosition(String text) {
-        listText.add(text);
-    }
-
     @Override
-    public void sectionOutput() {
-        List<String> list = new ArrayList<>(listText);
-        for (String string : list) {
-            System.out.println("- " + string);
-        }
+    public String toString() {
+        return "ListOfTextSection{" +
+                "listText=" + listText +
+                '}';
     }
 
     @Override
@@ -35,7 +29,8 @@ public class ListOfTextSection extends AbstractSection {
 
         ListOfTextSection that = (ListOfTextSection) o;
 
-        return Objects.equals(listText, that.listText);
+        return listText != null ? listText.equals(that.listText) : that.listText == null;
+
     }
 
     @Override

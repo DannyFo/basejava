@@ -13,16 +13,26 @@ public class ResumeTestData {
     public static void main(String[] args) {
         Resume r1 = new Resume("Григорий Кислин");
 
-        List<String> otherContacts = new ArrayList<>();
-        otherContacts.add("Профиль LinkedIn");
-        otherContacts.add("Профиль GitHub");
-        otherContacts.add("Профиль Stackoverflow");
-        otherContacts.add("Домашняя страница");
+        List<ContactWithUrl> OtherContactsWithUrl = new ArrayList<>();
 
-        SimpleTextSection telephone = new SimpleTextSection("+7(921) 855-0482");
-        SimpleTextSection skype = new SimpleTextSection("grigory.kislin");
-        SimpleTextSection mail = new SimpleTextSection("gkislin@yandex.ru");
-        ListOfTextSection other = new ListOfTextSection(otherContacts);
+        ContactWithUrl contact1 = new ContactWithUrl("Профиль LinkedIn",
+                "https://www.linkedin.com/in/gkislin");
+        ContactWithUrl contact2 = new ContactWithUrl("Профиль GitHub",
+                "https://github.com/gkislin");
+        ContactWithUrl contact3 = new ContactWithUrl("Профиль Stackoverflow",
+                "https://stackoverflow.com/users/548473/gkislin");
+        ContactWithUrl contact4 = new ContactWithUrl("Домашняя страница",
+                "http://gkislin.ru");
+
+        OtherContactsWithUrl.add(contact1);
+        OtherContactsWithUrl.add(contact2);
+        OtherContactsWithUrl.add(contact3);
+        OtherContactsWithUrl.add(contact4);
+
+        SimpleTextContact telephone = new SimpleTextContact("+7(921) 855-0482");
+        ContactWithUrl skype = new ContactWithUrl("grigory.kislin", "skype:grigory.kislin");
+        ContactWithUrl mail = new ContactWithUrl("gkislin@yandex.ru", "gkislin@yandex.ru");
+        ListOfContactsWithUrl other = new ListOfContactsWithUrl(OtherContactsWithUrl);
 
         SimpleTextSection personal = new SimpleTextSection("Аналитический склад " +
                 "ума, сильная логика, креативность, инициативность. " +
@@ -124,12 +134,12 @@ public class ResumeTestData {
 
         for (ContactType type : ContactType.values()) {
             System.out.println(type.getTitle());
-            r1.contacts.get(type).sectionOutput();
+            System.out.println(r1.contacts.get(type).toString());
         }
 
         for (SectionType type : SectionType.values()) {
             System.out.println(type.getTitle());
-            r1.sections.get(type).sectionOutput();
+            System.out.println(r1.sections.get(type).toString());
         }
     }
 }

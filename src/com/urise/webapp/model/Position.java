@@ -1,7 +1,6 @@
 package com.urise.webapp.model;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 public class Position {
     private String title;
@@ -59,17 +58,28 @@ public class Position {
     }
 
     @Override
+    public String toString() {
+        return "Position{" +
+                "title='" + title + '\'' +
+                ", text='" + text + '\'' +
+                ", url='" + url + '\'' +
+                ", startDate=" + startDate +
+                ", finishDate=" + finishDate +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         Position position = (Position) o;
 
-        if (!Objects.equals(title, position.title)) return false;
-        if (!Objects.equals(text, position.text)) return false;
-        if (!Objects.equals(url, position.url)) return false;
-        if (!Objects.equals(startDate, position.startDate)) return false;
-        return Objects.equals(finishDate, position.finishDate);
+        if (title != null ? !title.equals(position.title) : position.title != null) return false;
+        if (text != null ? !text.equals(position.text) : position.text != null) return false;
+        if (url != null ? !url.equals(position.url) : position.url != null) return false;
+        if (startDate != null ? !startDate.equals(position.startDate) : position.startDate != null) return false;
+        return finishDate != null ? finishDate.equals(position.finishDate) : position.finishDate == null;
 
     }
 

@@ -1,10 +1,10 @@
 package com.urise.webapp.model;
 
-public class SimpleTextSection extends AbstractSection {
+public class SimpleTextContact extends AbstractContact {
 
     private String text;
 
-    public SimpleTextSection(String text) {
+    public SimpleTextContact(String text) {
         this.text = text;
     }
 
@@ -18,7 +18,7 @@ public class SimpleTextSection extends AbstractSection {
 
     @Override
     public String toString() {
-        return "SimpleTextSection{" +
+        return "SimpleTextContact{" +
                 "text='" + text + '\'' +
                 '}';
     }
@@ -28,7 +28,7 @@ public class SimpleTextSection extends AbstractSection {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        SimpleTextSection that = (SimpleTextSection) o;
+        SimpleTextContact that = (SimpleTextContact) o;
 
         return text != null ? text.equals(that.text) : that.text == null;
 
