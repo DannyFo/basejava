@@ -2,6 +2,7 @@ package com.urise.webapp;
 
 import com.urise.webapp.model.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,26 +14,19 @@ public class ResumeTestData {
     public static void main(String[] args) {
         Resume r1 = new Resume("Григорий Кислин");
 
-        List<ContactWithUrl> OtherContactsWithUrl = new ArrayList<>();
-
-        ContactWithUrl contact1 = new ContactWithUrl("Профиль LinkedIn",
+        Contact mobile = new Contact("+7(921) 855-0482", null);
+        Contact skype = new Contact("grigory.kislin",
+                "skype:grigory.kislin");
+        Contact mail = new Contact("gkislin@yandex.ru",
+                "gkislin@yandex.ru");
+        Contact linkedIn = new Contact("Профиль LinkedIn",
                 "https://www.linkedin.com/in/gkislin");
-        ContactWithUrl contact2 = new ContactWithUrl("Профиль GitHub",
+        Contact gitHub = new Contact("Профиль GitHub",
                 "https://github.com/gkislin");
-        ContactWithUrl contact3 = new ContactWithUrl("Профиль Stackoverflow",
+        Contact stackoverflow = new Contact("Профиль Stackoverflow",
                 "https://stackoverflow.com/users/548473/gkislin");
-        ContactWithUrl contact4 = new ContactWithUrl("Домашняя страница",
+        Contact homePage = new Contact("Домашняя страница",
                 "http://gkislin.ru");
-
-        OtherContactsWithUrl.add(contact1);
-        OtherContactsWithUrl.add(contact2);
-        OtherContactsWithUrl.add(contact3);
-        OtherContactsWithUrl.add(contact4);
-
-        ContactWithUrl telephone = new ContactWithUrl("+7(921) 855-0482", null);
-        ContactWithUrl skype = new ContactWithUrl("grigory.kislin", "skype:grigory.kislin");
-        ContactWithUrl mail = new ContactWithUrl("gkislin@yandex.ru", "gkislin@yandex.ru");
-        ListOfContactsWithUrl other = new ListOfContactsWithUrl(OtherContactsWithUrl);
 
         SimpleTextSection personal = new SimpleTextSection("Аналитический склад " +
                 "ума, сильная логика, креативность, инициативность. " +
@@ -72,27 +66,28 @@ public class ResumeTestData {
         ArrayList<Position> experience = new ArrayList<>();
 
         Position experience1 = new Position("Java Online Projects",
-                "Автор проекта.\n" +
-                        "Создание, организация и проведение Java онлайн проектов и стажировок.",
-                "http://javaops.ru", 10, 2013, 04, 2019);
-        Position experience2 = new Position("Wrike", "Старший " +
-                "разработчик (backend)\n Проектирование и разработка онлайн платформы " +
-                "управления проектами Wrike " +
+                "http://javaops.ru",
+                LocalDate.of(2013,10,01),LocalDate.of(2019,04,01),
+                "Автор проекта.\n","Создание, организация и проведение Java онлайн проектов и стажировок.");
+        Position experience2 = new Position("Wrike", "https://www.wrike.com",
+                LocalDate.of(2014,10,01),
+                LocalDate.of(2016,01,01),
+                "Старший разработчик (backend)\n",
+                 "Проектирование и разработка онлайн платформы управления проектами Wrike " +
                 "(Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). " +
-                "Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO.",
-                "https://www.wrike.com", 10, 2014, 01, 2016);
+                "Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO.");
         Position experience3 = new Position("RIT Center",
-                "Java архитектор\n" +
-                        "Организация процесса разработки системы ERP для разных окружений: релизная " +
-                        "политика, версионирование, ведение CI (Jenkins), миграция базы (кастомизация " +
-                        "Flyway), конфигурирование системы (pgBoucer, Nginx), AAA via SSO. Архитектура " +
-                        "БД и серверной части системы. Разработка интергационных сервисов: CMIS, BPMN2, " +
-                        "1C (WebServices), сервисов общего назначения (почта, экспорт в pdf, doc, html). " +
-                        "Интеграция Alfresco JLAN для online редактирование из браузера документов MS " +
-                        "Office. Maven + plugin development, Ant, Apache Commons, Spring security, " +
-                        "Spring MVC, Tomcat,WSO2, xcmis, OpenCmis, Bonita, Python scripting, Unix shell " +
-                        "remote scripting via ssh tunnels, PL/Python", null, 04, 2012,
-                10, 2012);
+                null,LocalDate.of(2012,04,01),
+                LocalDate.of(2014,10,01), "Java архитектор\n",
+                "Организация процесса разработки системы ERP для разных окружений: релизная " +
+                "политика, версионирование, ведение CI (Jenkins), миграция базы (кастомизация " +
+                "Flyway), конфигурирование системы (pgBoucer, Nginx), AAA via SSO. Архитектура " +
+                "БД и серверной части системы. Разработка интергационных сервисов: CMIS, BPMN2, " +
+                "1C (WebServices), сервисов общего назначения (почта, экспорт в pdf, doc, html). " +
+                "Интеграция Alfresco JLAN для online редактирование из браузера документов MS " +
+                "Office. Maven + plugin development, Ant, Apache Commons, Spring security, " +
+                "Spring MVC, Tomcat,WSO2, xcmis, OpenCmis, Bonita, Python scripting, Unix shell " +
+                "remote scripting via ssh tunnels, PL/Python");
 
         experience.add(experience1);
         experience.add(experience2);
@@ -102,15 +97,16 @@ public class ResumeTestData {
 
         ArrayList<Position> education = new ArrayList<>();
 
-        Position education1 = new Position("Coursera", "\t\"Functional " +
-                "Programming Principles in Scala\" by Martin Odersky", "https://www.coursera.org",
-                03, 2013, 05, 2013);
-        Position education2 = new Position("Luxoft", "Курс \"Объектно-" +
-                "ориентированный анализ ИС. Концептуальное моделирование на UML.\"",
-                "https://www.luxoft-training.ru", 03, 2011, 04, 2011);
-        Position education3 = new Position("Siemens AG", "3 месяца " +
-                "обучения мобильным IN сетям (Берлин)", "https://new.siemens.com", 01, 2005,
-                04, 2005);
+        Position education1 = new Position("Coursera", "https://www.coursera.org",
+                LocalDate.of(2013,03,01),LocalDate.of(2013,05,01),
+                "\t\"Functional Programming Principles in Scala\" by Martin Odersky", null);
+        Position education2 = new Position("Luxoft", "https://www.luxoft-training.ru",
+                LocalDate.of(2011,03,01),LocalDate.of(2011,04,01),
+                "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"",
+                null);
+        Position education3 = new Position("Siemens AG", "https://new.siemens.com",
+                LocalDate.of(2005,01,01),LocalDate.of(2005,04,01),
+                "3 месяца обучения мобильным IN сетям (Берлин)", null);
 
         education.add(education1);
         education.add(education2);
@@ -118,10 +114,13 @@ public class ResumeTestData {
 
         PositionSection educationSection = new PositionSection(education);
 
-        r1.contacts.put(TELEPHONE, telephone);
+        r1.contacts.put(MOBILE, mobile);
         r1.contacts.put(SKYPE, skype);
         r1.contacts.put(MAIL, mail);
-        r1.contacts.put(OTHER, other);
+        r1.contacts.put(GITHUB, gitHub);
+        r1.contacts.put(LINKEDIN, linkedIn);
+        r1.contacts.put(STATCKOVERFLOW, stackoverflow);
+        r1.contacts.put(HOME_PAGE, homePage);
 
         r1.sections.put(PERSONAL, personal);
         r1.sections.put(OBJECTIVE, objective);

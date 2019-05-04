@@ -2,12 +2,14 @@ package com.urise.webapp.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PositionSection extends AbstractSection {
 
     private List<Position> listPosition;
 
     public PositionSection(ArrayList<Position> listPosition) {
+        Objects.requireNonNull(listPosition,"listPosition must not be null" );
         this.listPosition = listPosition;
     }
 
@@ -33,12 +35,12 @@ public class PositionSection extends AbstractSection {
 
         PositionSection that = (PositionSection) o;
 
-        return listPosition != null ? listPosition.equals(that.listPosition) : that.listPosition == null;
+        return listPosition.equals(that.listPosition);
 
     }
 
     @Override
     public int hashCode() {
-        return listPosition != null ? listPosition.hashCode() : 0;
+        return listPosition.hashCode();
     }
 }

@@ -1,10 +1,13 @@
 package com.urise.webapp.model;
 
-public class ContactWithUrl extends AbstractContact {
+import java.util.Objects;
+
+public class Contact {
     private String text;
     private String url;
 
-    public ContactWithUrl(String text, String url) {
+    public Contact(String text, String url) {
+        Objects.requireNonNull(text,"listText must not be null" );
         this.text = text;
         this.url = url;
     }
@@ -27,7 +30,7 @@ public class ContactWithUrl extends AbstractContact {
 
     @Override
     public String toString() {
-        return "ContactWithUrl{" +
+        return "Contact{" +
                 "text='" + text + '\'' +
                 ", url='" + url + '\'' +
                 '}';
@@ -38,16 +41,16 @@ public class ContactWithUrl extends AbstractContact {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ContactWithUrl that = (ContactWithUrl) o;
+        Contact contact = (Contact) o;
 
-        if (text != null ? !text.equals(that.text) : that.text != null) return false;
-        return url != null ? url.equals(that.url) : that.url == null;
+        if (!text.equals(contact.text)) return false;
+        return url != null ? url.equals(contact.url) : contact.url == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = text != null ? text.hashCode() : 0;
+        int result = text.hashCode();
         result = 31 * result + (url != null ? url.hashCode() : 0);
         return result;
     }

@@ -2,12 +2,14 @@ package com.urise.webapp.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ListOfTextSection extends AbstractSection {
 
     private List<String> listText;
 
     public ListOfTextSection(List<String> listText) {
+        Objects.requireNonNull(listText,"listText must not be null" );
         this.listText = listText;
     }
 
@@ -29,12 +31,12 @@ public class ListOfTextSection extends AbstractSection {
 
         ListOfTextSection that = (ListOfTextSection) o;
 
-        return listText != null ? listText.equals(that.listText) : that.listText == null;
+        return listText.equals(that.listText);
 
     }
 
     @Override
     public int hashCode() {
-        return listText != null ? listText.hashCode() : 0;
+        return listText.hashCode();
     }
 }

@@ -1,12 +1,17 @@
 package com.urise.webapp.model;
 
 public enum ContactType {
-    TELEPHONE("Тел.:"),
-    SKYPE("Skype:"),
-    MAIL("Почта:"),
-    OTHER("Иные контакты");
+    PHONE("Тел."),//как сделать чтобы можно было не заполнять эту графу и не выдавалась бы ошибка?
+    MOBILE("Мобильный"),
+    HOME_PHONE("Домашний тел."),//как сделать чтобы можно было не заполнять эту графу и не выдавалась бы ошибка?
+    SKYPE("Skype"),
+    MAIL("Почта"),
+    LINKEDIN("Профиль LinkedIn"),
+    GITHUB("Профиль GitHub"),
+    STATCKOVERFLOW("Профиль Stackoverflow"),
+    HOME_PAGE("Домашняя страница");
 
-    private String title;
+    private final String title;
 
     ContactType(String title){
         this.title = title;

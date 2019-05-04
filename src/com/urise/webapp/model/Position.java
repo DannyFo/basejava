@@ -1,71 +1,25 @@
 package com.urise.webapp.model;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Position {
-    private String title;
-    private String text;
-    private String url;
-    private LocalDate startDate;
-    private LocalDate finishDate;
+    private final Link homePage;
 
-    public Position(String title, String text, String url, int smonth, int syear, int fmonth, int fyear) {
-        this.title = title;
-        this.text = text;
-        this.url = url;
-        startDate = LocalDate.of(syear, smonth, 1);
-        finishDate = LocalDate.of(fyear, fmonth, 1);
-    }
+    private final LocalDate startDate;
+    private final LocalDate endDate;
+    private final String title;
+    private final String description;
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
+    public Position(String name, String url, LocalDate startDate, LocalDate endDate, String title, String description) {
+        Objects.requireNonNull(startDate, "startDate must not be null");
+        Objects.requireNonNull(endDate, "endDate must not be null");
+        Objects.requireNonNull(title, "title must not be null");
+        this.homePage = new Link(name, url);
         this.startDate = startDate;
-    }
-
-    public LocalDate getFinishDate() {
-        return finishDate;
-    }
-
-    public void setFinishDate(LocalDate finishDate) {
-        this.finishDate = finishDate;
-    }
-
-    @Override
-    public String toString() {
-        return "Position{" +
-                "title='" + title + '\'' +
-                ", text='" + text + '\'' +
-                ", url='" + url + '\'' +
-                ", startDate=" + startDate +
-                ", finishDate=" + finishDate +
-                '}';
+        this.endDate = endDate;
+        this.title = title;
+        this.description = description;
     }
 
     @Override
@@ -73,23 +27,34 @@ public class Position {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Position position = (Position) o;
+        Position that = (Position) o;
 
-        if (title != null ? !title.equals(position.title) : position.title != null) return false;
-        if (text != null ? !text.equals(position.text) : position.text != null) return false;
-        if (url != null ? !url.equals(position.url) : position.url != null) return false;
-        if (startDate != null ? !startDate.equals(position.startDate) : position.startDate != null) return false;
-        return finishDate != null ? finishDate.equals(position.finishDate) : position.finishDate == null;
+        if (!homePage.equals(that.homePage)) return false;
+        if (!startDate.equals(that.startDate)) return false;
+        if (!endDate.equals(that.endDate)) return false;
+        if (!title.equals(that.title)) return false;
+        return description != null ? description.equals(that.description) : that.description == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = title != null ? title.hashCode() : 0;
-        result = 31 * result + (text != null ? text.hashCode() : 0);
-        result = 31 * result + (url != null ? url.hashCode() : 0);
-        result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
-        result = 31 * result + (finishDate != null ? finishDate.hashCode() : 0);
+        int result = homePage.hashCode();
+        result = 31 * result + startDate.hashCode();
+        result = 31 * result + endDate.hashCode();
+        result = 31 * result + title.hashCode();
+        result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Organization{" +
+                "homePage=" + homePage +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

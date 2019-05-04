@@ -1,10 +1,13 @@
 package com.urise.webapp.model;
 
+import java.util.Objects;
+
 public class SimpleTextSection extends AbstractSection {
 
     private String text;
 
     public SimpleTextSection(String text) {
+        Objects.requireNonNull(text,"text must not be null" );
         this.text = text;
     }
 
@@ -30,12 +33,12 @@ public class SimpleTextSection extends AbstractSection {
 
         SimpleTextSection that = (SimpleTextSection) o;
 
-        return text != null ? text.equals(that.text) : that.text == null;
+        return text.equals(that.text);
 
     }
 
     @Override
     public int hashCode() {
-        return text != null ? text.hashCode() : 0;
+        return text.hashCode();
     }
 }
