@@ -11,7 +11,7 @@ import static com.urise.webapp.model.SectionType.*;
 
 public class ResumeTestData {
 
-    public void TestResume(String name) {
+    public Resume fillResume(String name) {
         Resume r1 = new Resume(name);
 
         Link phone = new Link("1234",null);
@@ -133,17 +133,18 @@ public class ResumeTestData {
         r1.sections.put(QUALIFICATIONS, qualificationSection);
         r1.sections.put(EXPERIENCE, experienceSection);
         r1.sections.put(EDUCATION, educationSection);
-
-        System.out.println(r1.getFullName());
-
-        for (ContactType type : ContactType.values()) {
-            System.out.println(type.getTitle());
-            System.out.println(r1.contacts.get(type).toString());
-        }
-
-        for (SectionType type : SectionType.values()) {
-            System.out.println(type.getTitle());
-            System.out.println(r1.sections.get(type).toString());
-        }
+//
+//        System.out.println(r1.getFullName());
+//
+//        for (ContactType type : ContactType.values()) {
+//            System.out.println(type.getTitle());
+//            System.out.println(r1.contacts.get(type).toString());
+//        }
+//
+//        for (SectionType type : SectionType.values()) {
+//            System.out.println(type.getTitle());
+//            System.out.println(r1.sections.get(type).toString());
+//        }
+        return r1;
     }
 }

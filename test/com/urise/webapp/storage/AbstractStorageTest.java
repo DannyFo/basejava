@@ -17,7 +17,7 @@ public class AbstractStorageTest {
     private static final String UUID_3 = "uuid3";
     private static final String DUMMY = "uuid4";//для проверок
 
-    private static final Resume RESUME_1 = new Resume(UUID_1, "b");
+    private static final Resume RESUME_1 = fillResume("Gregor");
     private static final Resume RESUME_2 = new Resume(UUID_2, "a");
     private static final Resume RESUME_3 = new Resume(UUID_3, "b");
 
