@@ -11,21 +11,23 @@ import static com.urise.webapp.model.SectionType.*;
 
 public class ResumeTestData {
 
-    public static void main(String[] args) {
-        Resume r1 = new Resume("Григорий Кислин");
+    public void TestResume(String name) {
+        Resume r1 = new Resume(name);
 
-        Contact mobile = new Contact("+7(921) 855-0482", null);
-        Contact skype = new Contact("grigory.kislin",
+        Link phone = new Link("1234",null);
+        Link mobile = new Link("+7(921) 855-0482", null);
+        Link homePhone = new Link("12345",null);
+        Link skype = new Link("grigory.kislin",
                 "skype:grigory.kislin");
-        Contact mail = new Contact("gkislin@yandex.ru",
+        Link mail = new Link("gkislin@yandex.ru",
                 "gkislin@yandex.ru");
-        Contact linkedIn = new Contact("Профиль LinkedIn",
+        Link linkedIn = new Link("Профиль LinkedIn",
                 "https://www.linkedin.com/in/gkislin");
-        Contact gitHub = new Contact("Профиль GitHub",
+        Link gitHub = new Link("Профиль GitHub",
                 "https://github.com/gkislin");
-        Contact stackoverflow = new Contact("Профиль Stackoverflow",
+        Link stackoverflow = new Link("Профиль Stackoverflow",
                 "https://stackoverflow.com/users/548473/gkislin");
-        Contact homePage = new Contact("Домашняя страница",
+        Link homePage = new Link("Домашняя страница",
                 "http://gkislin.ru");
 
         SimpleTextSection personal = new SimpleTextSection("Аналитический склад " +
@@ -100,6 +102,7 @@ public class ResumeTestData {
         Position education1 = new Position("Coursera", "https://www.coursera.org",
                 LocalDate.of(2013,03,01),LocalDate.of(2013,05,01),
                 "\t\"Functional Programming Principles in Scala\" by Martin Odersky", null);
+        education1.AddNextDate(2015,12, 2016,01);
         Position education2 = new Position("Luxoft", "https://www.luxoft-training.ru",
                 LocalDate.of(2011,03,01),LocalDate.of(2011,04,01),
                 "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"",
@@ -114,7 +117,9 @@ public class ResumeTestData {
 
         PositionSection educationSection = new PositionSection(education);
 
+        r1.contacts.put(PHONE, phone);
         r1.contacts.put(MOBILE, mobile);
+        r1.contacts.put(HOME_PHONE, homePhone);
         r1.contacts.put(SKYPE, skype);
         r1.contacts.put(MAIL, mail);
         r1.contacts.put(GITHUB, gitHub);

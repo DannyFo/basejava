@@ -1,6 +1,7 @@
 package com.urise.webapp.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Position {
@@ -8,6 +9,7 @@ public class Position {
 
     private final LocalDate startDate;
     private final LocalDate endDate;
+    private ArrayList<LocalDate> localNextDates = new ArrayList<>();
     private final String title;
     private final String description;
 
@@ -20,6 +22,11 @@ public class Position {
         this.endDate = endDate;
         this.title = title;
         this.description = description;
+    }
+
+    public void AddNextDate(int startYYYY, int startMM, int endYYYY, int endMM) {
+        localNextDates.add(LocalDate.of(startYYYY, startMM, 01));
+        localNextDates.add(LocalDate.of(endYYYY, endMM, 01));
     }
 
     @Override
@@ -49,11 +56,12 @@ public class Position {
 
     @Override
     public String toString() {
-        return "Organization{" +
-                "homePage=" + homePage +
+        return "Position{" +
+                "homePage=" + homePage + "\n" +
                 ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", title='" + title + '\'' +
+                ", endDate=" + endDate + "\n" +
+                ", localNextDates=" + localNextDates + "\n"+
+                ", title='" + title + '\'' + "\n" +
                 ", description='" + description + '\'' +
                 '}';
     }

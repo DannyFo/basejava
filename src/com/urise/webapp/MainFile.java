@@ -33,19 +33,23 @@ public class MainFile {
         //ДЗ
 
         File[] files = new File(".\\src\\com\\urise\\webapp").listFiles();
-        if (files != null)
-            getFiles(files);
-
+        if (files != null) {
+            for (File file1 : files) {
+                getFiles(file1);
+            }
+        }
     }
 
-    public static void getFiles(File[] files) {
-        for (File file : files) {
-            if (file.isDirectory()) {
-                System.out.println("Dir: " + file);
-                getFiles(file.listFiles());
-            } else {
-                System.out.println("        File: " + file);
+
+    public static void getFiles(File file1) {
+        if (file1.isDirectory()){
+            System.out.println("Dir: " + file1.getName());
+            File[] subFiles = file1.listFiles();
+            for (File subFile : subFiles) {
+                getFiles(subFile);
             }
+        } else {
+            System.out.println("File: " + file1.getName());
         }
     }
 }
