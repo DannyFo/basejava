@@ -75,7 +75,10 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     public void clear() {
-        directory.delete();
+        File[] list = directory.listFiles();
+        for (File file : list) {
+            file.delete();
+        }
     }
 
     @Override

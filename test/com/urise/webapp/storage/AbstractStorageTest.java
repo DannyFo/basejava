@@ -9,6 +9,8 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
+import static com.urise.webapp.ResumeTestData.fillResume;
+
 public class AbstractStorageTest {
     protected Storage storage;
 
@@ -17,9 +19,9 @@ public class AbstractStorageTest {
     private static final String UUID_3 = "uuid3";
     private static final String DUMMY = "uuid4";//для проверок
 
-    private static final Resume RESUME_1 = fillResume("Gregor");
-    private static final Resume RESUME_2 = new Resume(UUID_2, "a");
-    private static final Resume RESUME_3 = new Resume(UUID_3, "b");
+    private static final Resume RESUME_1 = fillResume(UUID_1,"Berger");
+    private static final Resume RESUME_2 = fillResume(UUID_2, "Artur");
+    private static final Resume RESUME_3 = fillResume(UUID_3, "Berger");
 
     protected static final Resume NOT_SAVED_TEST_RESUME = new Resume(DUMMY, "z");//для проверок
 

@@ -11,8 +11,8 @@ import static com.urise.webapp.model.SectionType.*;
 
 public class ResumeTestData {
 
-    public Resume fillResume(String name) {
-        Resume r1 = new Resume(name);
+    public static Resume fillResume(String uuid,String name) {
+        Resume r1 = new Resume(uuid,name);
 
         Link phone = new Link("1234",null);
         Link mobile = new Link("+7(921) 855-0482", null);
