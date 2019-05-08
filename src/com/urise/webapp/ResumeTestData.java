@@ -11,12 +11,12 @@ import static com.urise.webapp.model.SectionType.*;
 
 public class ResumeTestData {
 
-    public static Resume fillResume(String uuid,String name) {
-        Resume r1 = new Resume(uuid,name);
+    public static Resume fillResume(String uuid, String name) {
+        Resume r1 = new Resume(uuid, name);
 
-        Link phone = new Link("1234",null);
+        Link phone = new Link("1234", null);
         Link mobile = new Link("+7(921) 855-0482", null);
-        Link homePhone = new Link("12345",null);
+        Link homePhone = new Link("12345", null);
         Link skype = new Link("grigory.kislin",
                 "skype:grigory.kislin");
         Link mail = new Link("gkislin@yandex.ru",
@@ -69,27 +69,27 @@ public class ResumeTestData {
 
         Position experience1 = new Position("Java Online Projects",
                 "http://javaops.ru",
-                LocalDate.of(2013,10,01),LocalDate.of(2019,04,01),
-                "Автор проекта.\n","Создание, организация и проведение Java онлайн проектов и стажировок.");
+                LocalDate.of(2013, 10, 01), LocalDate.of(2019, 04, 01),
+                "Автор проекта.\n", "Создание, организация и проведение Java онлайн проектов и стажировок.");
         Position experience2 = new Position("Wrike", "https://www.wrike.com",
-                LocalDate.of(2014,10,01),
-                LocalDate.of(2016,01,01),
+                LocalDate.of(2014, 10, 01),
+                LocalDate.of(2016, 01, 01),
                 "Старший разработчик (backend)\n",
-                 "Проектирование и разработка онлайн платформы управления проектами Wrike " +
-                "(Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). " +
-                "Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO.");
+                "Проектирование и разработка онлайн платформы управления проектами Wrike " +
+                        "(Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). " +
+                        "Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO.");
         Position experience3 = new Position("RIT Center",
-                null,LocalDate.of(2012,04,01),
-                LocalDate.of(2014,10,01), "Java архитектор\n",
+                null, LocalDate.of(2012, 04, 01),
+                LocalDate.of(2014, 10, 01), "Java архитектор\n",
                 "Организация процесса разработки системы ERP для разных окружений: релизная " +
-                "политика, версионирование, ведение CI (Jenkins), миграция базы (кастомизация " +
-                "Flyway), конфигурирование системы (pgBoucer, Nginx), AAA via SSO. Архитектура " +
-                "БД и серверной части системы. Разработка интергационных сервисов: CMIS, BPMN2, " +
-                "1C (WebServices), сервисов общего назначения (почта, экспорт в pdf, doc, html). " +
-                "Интеграция Alfresco JLAN для online редактирование из браузера документов MS " +
-                "Office. Maven + plugin development, Ant, Apache Commons, Spring security, " +
-                "Spring MVC, Tomcat,WSO2, xcmis, OpenCmis, Bonita, Python scripting, Unix shell " +
-                "remote scripting via ssh tunnels, PL/Python");
+                        "политика, версионирование, ведение CI (Jenkins), миграция базы (кастомизация " +
+                        "Flyway), конфигурирование системы (pgBoucer, Nginx), AAA via SSO. Архитектура " +
+                        "БД и серверной части системы. Разработка интергационных сервисов: CMIS, BPMN2, " +
+                        "1C (WebServices), сервисов общего назначения (почта, экспорт в pdf, doc, html). " +
+                        "Интеграция Alfresco JLAN для online редактирование из браузера документов MS " +
+                        "Office. Maven + plugin development, Ant, Apache Commons, Spring security, " +
+                        "Spring MVC, Tomcat,WSO2, xcmis, OpenCmis, Bonita, Python scripting, Unix shell " +
+                        "remote scripting via ssh tunnels, PL/Python");
 
         experience.add(experience1);
         experience.add(experience2);
@@ -100,15 +100,15 @@ public class ResumeTestData {
         ArrayList<Position> education = new ArrayList<>();
 
         Position education1 = new Position("Coursera", "https://www.coursera.org",
-                LocalDate.of(2013,03,01),LocalDate.of(2013,05,01),
+                LocalDate.of(2013, 03, 01), LocalDate.of(2013, 05, 01),
                 "\t\"Functional Programming Principles in Scala\" by Martin Odersky", null);
-        education1.AddNextDate(2015,12, 2016,01);
+        education1.AddNextDate(2015, 12, 2016, 01);
         Position education2 = new Position("Luxoft", "https://www.luxoft-training.ru",
-                LocalDate.of(2011,03,01),LocalDate.of(2011,04,01),
+                LocalDate.of(2011, 03, 01), LocalDate.of(2011, 04, 01),
                 "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"",
                 null);
         Position education3 = new Position("Siemens AG", "https://new.siemens.com",
-                LocalDate.of(2005,01,01),LocalDate.of(2005,04,01),
+                LocalDate.of(2005, 01, 01), LocalDate.of(2005, 04, 01),
                 "3 месяца обучения мобильным IN сетям (Берлин)", null);
 
         education.add(education1);

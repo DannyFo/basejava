@@ -32,24 +32,20 @@ public class MainFile {
 
         //ДЗ
 
-        File[] files = new File(".\\src\\com\\urise\\webapp").listFiles();
-        if (files != null) {
-            for (File file1 : files) {
-                getFiles(file1);
-            }
-        }
+        getFiles(dir);
     }
 
-
-    public static void getFiles(File file1) {
-        if (file1.isDirectory()){
-            System.out.println("Dir: " + file1.getName());
-            File[] subFiles = file1.listFiles();
-            for (File subFile : subFiles) {
-                getFiles(subFile);
+    public static void getFiles(File directory) {
+        File[] files = directory.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    System.out.println("Dir: " + file.getName());
+                    getFiles(file);
+                } else {
+                    System.out.println("File: " + file.getName());
+                }
             }
-        } else {
-            System.out.println("File: " + file1.getName());
         }
     }
 }
