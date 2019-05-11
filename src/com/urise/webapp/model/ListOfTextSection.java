@@ -1,16 +1,21 @@
 package com.urise.webapp.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 public class ListOfTextSection extends AbstractSection {
 
-    private List<String> listText;
+    private final List<String> listText;
 
     public ListOfTextSection(List<String> listText) {
         Objects.requireNonNull(listText,"listText must not be null" );
         this.listText = listText;
+    }
+
+    public ListOfTextSection(String...listText) {
+        this(Arrays.asList(listText));
     }
 
     public List getListText() {
