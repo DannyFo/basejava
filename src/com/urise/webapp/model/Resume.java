@@ -8,14 +8,13 @@ import java.util.UUID;
 /**
  * Initial resume class
  */
-public class Resume {
+public class Resume implements Comparable<Resume> {
 
     private final String uuid;
 
     private final String fullName;
 
     public Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
-
     public Map<ContactType, Link> contacts = new EnumMap<>(ContactType.class);
 
     public Resume(String fullName) {
@@ -29,12 +28,20 @@ public class Resume {
         this.uuid = uuid;
     }
 
-    public Map<SectionType, AbstractSection> getSections() {
-        return sections;
+    public Link getContact(ContactType type) {
+        return contacts.get(type);
     }
 
-    public Map<ContactType, Link> getContacts() {
-        return contacts;
+    public AbstractSection getSection(SectionType type) {
+        return sections.get(type);
+    }
+
+    public void addContact(ContactType type, Link value) {
+        contacts.put(type, value);
+    }
+
+    public void addSection(SectionType type, AbstractSection section) {
+        sections.put(type, section);
     }
 
     public String getFullName() {
@@ -71,5 +78,11 @@ public class Resume {
     @Override
     public String toString() {
         return uuid + '(' + fullName + ')';
+    }
+
+    @Override
+    public int compareTo(Resume o) {
+        int cmp = fullName.compareTo(o.fullName);
+        return cmp != 0 ? cmp : uuid.compareTo(o.uuid);
     }
 }
