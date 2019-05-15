@@ -42,7 +42,7 @@ public class MainFile {
                 if (file.isDirectory()) {
                     System.out.println("Dir: " + file.getName());
                     getFiles(file);
-                } else {
+                } else if (file.isFile()) {
                     System.out.println("File: " + file.getName());
                 }
             }
