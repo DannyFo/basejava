@@ -3,8 +3,10 @@ package com.urise.webapp;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class MainFile {
+
     public static void main(String[] args) throws IOException {
         String filePath = ".\\.gitignore";
         File file = new File(".\\.gitignore");
@@ -31,21 +33,30 @@ public class MainFile {
         }
 
         //ДЗ
-
-        getFiles(dir);
+        int counter = 0;
+        getFiles(dir, counter);
     }
 
-    public static void getFiles(File directory) {
+    public static void getFiles(File directory, int counter) {
         File[] files = directory.listFiles();
         if (files != null) {
             for (File file : files) {
                 if (file.isDirectory()) {
-                    System.out.println("Dir: " + file.getName());
-                    getFiles(file);
+                    System.out.println("Dir: " + checkForDeep(counter) + file.getName());
+                    counter++;
+                    getFiles(file, counter);
+                    counter = 0;
                 } else if (file.isFile()) {
-                    System.out.println("File: " + file.getName());
+                    System.out.println("File: " + checkForDeep(counter) + file.getName());
                 }
             }
         }
     }
+
+    private static String checkForDeep(int counter) {
+        String[] space = new String[counter];
+        Arrays.fill(space, " |");
+        return Arrays.toString(space);
+    }
+
 }
