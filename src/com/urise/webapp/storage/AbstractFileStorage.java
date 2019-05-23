@@ -11,6 +11,8 @@ import java.util.Objects;
 public abstract class AbstractFileStorage extends AbstractStorage<File> {
     private File directory;
 
+    public StreamStorage streamStorage;
+
     protected AbstractFileStorage(File directory) {
         Objects.requireNonNull(directory, "directory must not be null");
         if (!directory.isDirectory()) {
@@ -99,7 +101,12 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         return list.length;
     }
 
-    protected abstract void doWrite(Resume resume, OutputStream os) throws IOException;
 
-    protected abstract Resume doRead(InputStream is) throws IOException;
+    protected void doWrite(Resume resume, OutputStream os) throws IOException{
+        streamStorage.doWrite(resume,os);
+    }
+
+    protected  Resume doRead(InputStream is) throws IOException{
+        return streamStorage.doRead(is);
+    }
 }
