@@ -15,6 +15,7 @@ import static junit.framework.TestCase.assertTrue;
 
 public class AbstractStorageTest {
     protected static final File STORAGE_DIR = new File("C:\\Users\\Данила\\Desktop\\java\\basejava\\storage");
+    protected static ObjectStreamStorage os = new ObjectStreamStorage();
     protected Storage storage;
 
     private static final String UUID_1 = "uuid1";
@@ -30,6 +31,11 @@ public class AbstractStorageTest {
 
     protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
+    }
+
+    protected AbstractStorageTest(Storage storage,ObjectStreamStorage os) {
+        this.storage = storage;
+        this.os = os;
     }
 
     @Before

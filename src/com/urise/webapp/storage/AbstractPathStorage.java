@@ -85,7 +85,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
         return list;
     }
 
-    @Override //ЭТОТ МЕТОД ГОТОВ!
+    @Override
     public void clear() {
         try {
             Files.list(directory).forEach(this::deleteResume);

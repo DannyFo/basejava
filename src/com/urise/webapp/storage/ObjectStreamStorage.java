@@ -5,11 +5,7 @@ import com.urise.webapp.model.Resume;
 
 import java.io.*;
 
-public class ObjectStreamStorage extends AbstractFileStorage implements StreamStorage {
-
-    protected ObjectStreamStorage(File directory) {
-        super(directory);
-    }
+public class ObjectStreamStorage implements StreamStorage {
 
     @Override
     public void doWrite(Resume resume, OutputStream os) throws IOException {

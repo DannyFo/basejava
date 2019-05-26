@@ -3,7 +3,6 @@ package com.urise.webapp;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Arrays;
 
 public class MainFile {
 
@@ -54,9 +53,14 @@ public class MainFile {
     }
 
     private static String checkForDeep(int counter) {
-        String[] space = new String[counter];
-        Arrays.fill(space, " |");
-        return Arrays.toString(space);
+        int i = 0;
+        String space = "";
+        while (i < counter) {
+            space = space + "|   ";
+            i++;
+        }
+        return space;
     }
+
 
 }
