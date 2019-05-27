@@ -32,35 +32,23 @@ public class MainFile {
         }
 
         //ДЗ
-        int counter = 0;
-        getFiles(dir, counter);
+        String space = "";
+        getFiles(dir, space);
     }
 
-    public static void getFiles(File directory, int counter) {
+    public static void getFiles(File directory, String space) {
         File[] files = directory.listFiles();
         if (files != null) {
             for (File file : files) {
                 if (file.isDirectory()) {
-                    System.out.println("Dir: " + checkForDeep(counter) + file.getName());
-                    counter++;
-                    getFiles(file, counter);
-                    counter = 0;
+                    System.out.println(space + file.getName());
+                    space = space + "|   ";
+                    getFiles(file, space);
+                    space = "";
                 } else if (file.isFile()) {
-                    System.out.println("File: " + checkForDeep(counter) + file.getName());
+                    System.out.println(space + file.getName());
                 }
             }
         }
     }
-
-    private static String checkForDeep(int counter) {
-        int i = 0;
-        String space = "";
-        while (i < counter) {
-            space = space + "|   ";
-            i++;
-        }
-        return space;
-    }
-
-
 }
