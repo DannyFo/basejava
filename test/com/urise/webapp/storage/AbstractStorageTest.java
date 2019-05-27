@@ -15,6 +15,7 @@ import static junit.framework.TestCase.assertTrue;
 
 public class AbstractStorageTest {
     protected static final File STORAGE_DIR = new File("C:\\Users\\Данила\\Desktop\\java\\basejava\\storage");
+    protected static final String PATH_DIR = STORAGE_DIR.getAbsolutePath();
     protected static ObjectStreamStorage os = new ObjectStreamStorage();
     protected Storage storage;
 
