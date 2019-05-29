@@ -15,7 +15,7 @@ public class MainFile {
             throw new RuntimeException("Error", e);
         }
 
-        File dir = new File(".\\src\\com\\urise\\webapp");
+        File dir = new File(".");
         System.out.println(dir.isDirectory());
         String[] list = dir.list();
 
@@ -42,9 +42,7 @@ public class MainFile {
             for (File file : files) {
                 if (file.isDirectory()) {
                     System.out.println(space + file.getName());
-                    space = space + "|   ";
-                    getFiles(file, space);
-                    space = "";
+                    getFiles(file, space+ "|   ");
                 } else if (file.isFile()) {
                     System.out.println(space + file.getName());
                 }

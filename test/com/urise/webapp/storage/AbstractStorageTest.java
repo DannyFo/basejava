@@ -11,12 +11,10 @@ import java.io.File;
 import java.util.Arrays;
 
 import static com.urise.webapp.ResumeTestData.fillResume;
-import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertEquals;
 
 public class AbstractStorageTest {
     protected static final File STORAGE_DIR = new File("C:\\Users\\Данила\\Desktop\\java\\basejava\\storage");
-    protected static final String PATH_DIR = STORAGE_DIR.getAbsolutePath();
-    protected static ObjectStreamStorage os = new ObjectStreamStorage();
     protected Storage storage;
 
     private static final String UUID_1 = "uuid1";
@@ -32,11 +30,6 @@ public class AbstractStorageTest {
 
     protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
-    }
-
-    protected AbstractStorageTest(Storage storage,ObjectStreamStorage os) {
-        this.storage = storage;
-        this.os = os;
     }
 
     @Before
@@ -57,7 +50,7 @@ public class AbstractStorageTest {
     public void update() {
         Resume r1 = new Resume(UUID_3, "b");
         storage.update(r1);
-        assertTrue(r1.equals(storage.get(UUID_3)));
+        assertEquals(r1, storage.get(UUID_3));
     }
 
     @Test(expected = NotExistStorageException.class)
