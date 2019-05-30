@@ -1,4 +1,4 @@
-package com.urise.webapp.storage.serializationOfStorage;
+package com.urise.webapp.storage.serialization;
 
 import com.urise.webapp.model.Resume;
 

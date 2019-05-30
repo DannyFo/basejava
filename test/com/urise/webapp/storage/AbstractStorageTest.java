@@ -9,9 +9,9 @@ import org.junit.Test;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.List;
 
 import static com.urise.webapp.ResumeTestData.fillResume;
-import static junit.framework.TestCase.assertEquals;
 
 public class AbstractStorageTest {
     protected static final File STORAGE_DIR = new File("C:\\Users\\Данила\\Desktop\\java\\basejava\\storage");
@@ -50,7 +50,7 @@ public class AbstractStorageTest {
     public void update() {
         Resume r1 = new Resume(UUID_3, "b");
         storage.update(r1);
-        assertEquals(r1, storage.get(UUID_3));
+        Assert.assertEquals(r1, storage.get(UUID_3));
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -60,8 +60,9 @@ public class AbstractStorageTest {
 
     @Test
     public void getAllSorted() {
-        Assert.assertEquals(Arrays.asList(RESUME_2,RESUME_1,RESUME_3), storage.getAllSorted());
-        Assert.assertEquals(3, storage.getAllSorted().size());
+        List<Resume> allSortedResume = storage.getAllSorted();
+        Assert.assertEquals(Arrays.asList(RESUME_2,RESUME_1,RESUME_3), allSortedResume);
+        Assert.assertEquals(3, allSortedResume.size());
     }
 
     @Test
