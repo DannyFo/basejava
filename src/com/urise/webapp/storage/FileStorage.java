@@ -12,7 +12,7 @@ import java.util.Objects;
 public class FileStorage extends AbstractStorage<File> {
     private File directory;
 
-    public IOStrategy ioStrategy;
+    private IOStrategy ioStrategy;
 
     protected FileStorage(File directory, IOStrategy ioStrategy) {
         Objects.requireNonNull(directory, "directory must not be null");
@@ -75,7 +75,7 @@ public class FileStorage extends AbstractStorage<File> {
     protected List<Resume> getList() {
         File[] files = directory.listFiles();
         if (files == null) {
-            throw new StorageException("Directory read error", null);
+            throw new StorageException("Directory read error");
         }
         List<Resume> list = new ArrayList<>(files.length);
         for (File file : files) {
@@ -98,7 +98,7 @@ public class FileStorage extends AbstractStorage<File> {
     public int size() {
         String[] list = directory.list();
         if (list == null) {
-            throw new StorageException("Directory size error", null);
+            throw new StorageException("Directory size error");
         }
         return list.length;
     }
