@@ -8,9 +8,13 @@ import java.util.Objects;
  * gkislin
  * 19.07.2016
  */
+
 public class OrganizationSection extends AbstractSection {
     private static final long serialVersionUID = 1L;
-    private final List<Organization> organizations;
+    private List<Organization> organizations;
+
+    public OrganizationSection() {
+    }
 
     public OrganizationSection(Organization... organizations) {
         this(Arrays.asList(organizations));
