@@ -38,6 +38,14 @@ public class Resume implements Comparable<Resume>, Serializable {
         this.uuid = uuid;
     }
 
+    public Map<SectionType, AbstractSection> getSections() {
+        return sections;
+    }
+
+    public Map<ContactType, Link> getContacts() {
+        return contacts;
+    }
+
     public Link getContact(ContactType type) {
         return contacts.get(type);
     }
@@ -66,23 +74,16 @@ public class Resume implements Comparable<Resume>, Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Resume resume = (Resume) o;
-
-        if (!uuid.equals(resume.uuid)) return false;
-        if (!fullName.equals(resume.fullName)) return false;
-        if (!Objects.equals(sections, resume.sections)) return false;
-        return Objects.equals(contacts, resume.contacts);
-
+        return Objects.equals(uuid, resume.uuid) &&
+                Objects.equals(fullName, resume.fullName) &&
+                Objects.equals(sections, resume.sections) &&
+                Objects.equals(contacts, resume.contacts);
     }
 
     @Override
     public int hashCode() {
-        int result = uuid.hashCode();
-        result = 31 * result + fullName.hashCode();
-        result = 31 * result + (sections != null ? sections.hashCode() : 0);
-        result = 31 * result + (contacts != null ? contacts.hashCode() : 0);
-        return result;
+        return Objects.hash(uuid, fullName, sections, contacts);
     }
 
     @Override
