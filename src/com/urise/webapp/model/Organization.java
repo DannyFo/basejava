@@ -40,6 +40,7 @@ public class Organization implements Serializable {
     public List<Position> getPositions() {
         return positions;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -64,7 +65,7 @@ public class Organization implements Serializable {
      * 28.07.2016
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    public static class Position implements Serializable{
+    public static class Position implements Serializable {
         @XmlJavaTypeAdapter(LocalDateAdapter.class)
         private LocalDate startDate;
         @XmlJavaTypeAdapter(LocalDateAdapter.class)
@@ -87,17 +88,15 @@ public class Organization implements Serializable {
             Objects.requireNonNull(startDate, "startDate must not be null");
             Objects.requireNonNull(endDate, "endDate must not be null");
             Objects.requireNonNull(title, "title must not be null");
-            if(description==null){
-                this.description ="";
-                this.startDate = startDate;
-                this.endDate = endDate;
-                this.title = title;
-            }else{
-                this.startDate = startDate;
-                this.endDate = endDate;
-                this.title = title;
+            if (description == null) {
+                this.description = "";
+            } else {
                 this.description = description;
             }
+            this.startDate = startDate;
+            this.endDate = endDate;
+            this.title = title;
+
         }
 
         public LocalDate getStartDate() {

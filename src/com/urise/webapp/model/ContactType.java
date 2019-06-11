@@ -1,9 +1,9 @@
 package com.urise.webapp.model;
 
 public enum ContactType {
-    PHONE("Тел."),//как сделать чтобы можно было не заполнять эту графу и не выдавалась бы ошибка?
+    PHONE("Тел."),
     MOBILE("Мобильный"),
-    HOME_PHONE("Домашний тел."),//как сделать чтобы можно было не заполнять эту графу и не выдавалась бы ошибка?
+    HOME_PHONE("Домашний тел."),
     SKYPE("Skype"),
     MAIL("Почта"),
     LINKEDIN("Профиль LinkedIn"),

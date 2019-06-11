@@ -3,6 +3,7 @@ package com.urise.webapp.storage.serialization;
 import com.urise.webapp.model.*;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,37 +20,93 @@ public class DataStreamSerializer implements IOStrategy {
             dos.writeUTF(resume.getFullName());
             Map<ContactType, Link> contacts = resume.getContacts();
             dos.writeInt(contacts.size());
-            for (Map.Entry<ContactType, Link> entry : contacts.entrySet()) {
-                dos.writeUTF(entry.getKey().name());
-                dos.writeUTF(entry.getValue().getName());
-                dos.writeUTF(entry.getValue().getUrl());
-            }
-            Map<SectionType, AbstractSection> sections = resume.getSections();
-            dos.writeInt(resume.sections.size());//кол-во секций
-            for (Map.Entry<SectionType, AbstractSection> entry : sections.entrySet()) {
-                dos.writeUTF(entry.getKey().name());
-                switch (entry.getKey()) {
-                    case PERSONAL:
-                    case OBJECTIVE:
-                        simpleTextSectionAdd(entry, dos);
-                        break;
-                    case ACHIEVEMENT:
-                    case QUALIFICATIONS:
-                        listOfTextSectionAdd(entry, dos);
-                        break;
-                    case EXPERIENCE:
-                    case EDUCATION:
-                        organizationSectionAdd(entry, dos);
-                        break;
-                    default:
-                        break;
+
+            contacts.forEach((contactType, link) -> {
+                try {
+                    dos.writeUTF(contactType.name());
+                    dos.writeUTF(link.getName());
+                    dos.writeUTF(link.getUrl());
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            }
+                Map<SectionType, AbstractSection> sections = resume.getSections();
+                try {
+                    dos.writeInt(resume.sections.size());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                sections.forEach((sectionType, abstractSection)->{
+                    try {
+                        dos.writeUTF(sectionType.name());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    switch (sectionType) {
+                        case PERSONAL:
+                        case OBJECTIVE:
+                            try {
+                                simpleTextSectionWrite(abstractSection, dos);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                        case ACHIEVEMENT:
+                        case QUALIFICATIONS:
+                            try {
+                                listOfTextSectionWrite(abstractSection, dos);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                        case EXPERIENCE:
+                        case EDUCATION:
+                            try {
+                                organizationSectionWrite(abstractSection, dos);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                });
+
+            });
+
+//            for (Map.Entry<ContactType, Link> entry : contacts.entrySet()) {
+//                dos.writeUTF(entry.getKey().name());
+//                dos.writeUTF(entry.getValue().getName());
+//                dos.writeUTF(entry.getValue().getUrl());
+//            }
+//            Map<SectionType, AbstractSection> sections = resume.getSections();
+//            dos.writeInt(resume.sections.size());//кол-во секций
+//            for (Map.Entry<SectionType, AbstractSection> entry : sections.entrySet()) {
+//                dos.writeUTF(entry.getKey().name());
+//                switch (entry.getKey()) {
+//                    case PERSONAL:
+//                    case OBJECTIVE:
+//                        simpleTextSectionWrite(entry, dos);
+//                        break;
+//                    case ACHIEVEMENT:
+//                    case QUALIFICATIONS:
+//                        listOfTextSectionWrite(entry, dos);
+//                        break;
+//                    case EXPERIENCE:
+//                    case EDUCATION:
+//                        organizationSectionWrite(entry, dos);
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            }
         }
     }
 
-    private void organizationSectionAdd(Map.Entry<SectionType, AbstractSection> entry, DataOutputStream dos) throws IOException {
-        OrganizationSection organizationSection = (OrganizationSection) entry.getValue();
+
+
+
+    private void organizationSectionWrite(AbstractSection abstractSection, DataOutputStream dos) throws IOException {
+        OrganizationSection organizationSection = (OrganizationSection) abstractSection;
         List<Organization> organizations = organizationSection.getOrganizations();
         dos.writeInt(organizations.size());
         for (Organization organization : organizations) {
@@ -58,18 +115,21 @@ public class DataStreamSerializer implements IOStrategy {
             List<Organization.Position> positions = organization.getPositions();
             dos.writeInt(positions.size());
             for (Organization.Position position : positions) {
-                dos.writeInt(position.getStartDate().getYear());
-                dos.writeInt(position.getStartDate().getMonthValue());
-                dos.writeInt(position.getEndDate().getYear());
-                dos.writeInt(position.getEndDate().getMonthValue());
+                writeDate(dos, position.getStartDate());
+                writeDate(dos, position.getEndDate());
                 dos.writeUTF(position.getTitle());
                 dos.writeUTF(position.getDescription());
             }
         }
     }
 
-    private void listOfTextSectionAdd(Map.Entry<SectionType, AbstractSection> entry, DataOutputStream dos) throws IOException {
-        ListOfTextSection listOfTextSection = (ListOfTextSection) entry.getValue();
+    private void writeDate(DataOutputStream dos, LocalDate startDate) throws IOException {
+        dos.writeInt(startDate.getYear());
+        dos.writeInt(startDate.getMonthValue());
+    }
+
+    private void listOfTextSectionWrite(AbstractSection abstractSection, DataOutputStream dos) throws IOException {
+        ListOfTextSection listOfTextSection = (ListOfTextSection) abstractSection;
         List<String> listText = listOfTextSection.getListText();
         dos.writeInt(listText.size());
         for (String text : listText) {
@@ -77,8 +137,8 @@ public class DataStreamSerializer implements IOStrategy {
         }
     }
 
-    private void simpleTextSectionAdd(Map.Entry<SectionType, AbstractSection> entry, DataOutputStream dos) throws IOException {
-        SimpleTextSection text = (SimpleTextSection) entry.getValue();
+    private void simpleTextSectionWrite(AbstractSection abstractSection, DataOutputStream dos)throws IOException {
+        SimpleTextSection text = (SimpleTextSection) abstractSection;
         dos.writeUTF(text.getText());
     }
 
@@ -123,7 +183,7 @@ public class DataStreamSerializer implements IOStrategy {
 
     private AbstractSection organizationSectionRead(DataInputStream dis) throws IOException {
         int osSize = dis.readInt();
-        List<Organization> organizations = new ArrayList<Organization>();
+        List<Organization> organizations = new ArrayList<>();
         for (int i = 0; i < osSize; i++) {
             String homePage = dis.readUTF();
             String url = dis.readUTF();
@@ -144,6 +204,15 @@ public class DataStreamSerializer implements IOStrategy {
             organizations.add(organization);
         }
         return new OrganizationSection(organizations);
+    }
+
+    private Object readDate(DataInputStream dis) throws IOException {//мне кажется такой подход не правильный
+        int value = dis.readInt();
+        if (value > 12) {
+            return value;
+        } else {
+            return of(value);
+        }
     }
 
     private AbstractSection listOfTextSectionRead(DataInputStream dis) throws IOException {
