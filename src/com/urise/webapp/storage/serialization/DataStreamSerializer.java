@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 public class DataStreamSerializer implements IOStrategy {
 
@@ -17,17 +16,10 @@ public class DataStreamSerializer implements IOStrategy {
             dos.writeUTF(resume.getUuid());
             dos.writeUTF(resume.getFullName());
 
-            Map<ContactType, Link> contacts = resume.getContacts();
-            dos.writeInt(contacts.size());
-
-            contacts.forEach((contactType, link) -> {
-                try {
-                    dos.writeUTF(contactType.name());
-                    dos.writeUTF(link.getName());
-                    dos.writeUTF(link.getUrl());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            writeCollection(dos, resume.getContacts().entrySet(), entry -> {
+                dos.writeUTF(entry.getKey().name());
+                dos.writeUTF(entry.getValue().getName());
+                dos.writeUTF(entry.getValue().getUrl());
             });
 
             writeCollection(dos, resume.getSections().entrySet(), entry -> {
