@@ -1,7 +1,7 @@
 package com.urise.webapp;
 
 public class MainString {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         String[] strArray = new String[]{"1", "2", "3", "4", "5"};
 //        String result = "";
         StringBuilder sb = new StringBuilder();
@@ -13,5 +13,9 @@ public class MainString {
         String str1 = "abc";
         String str2 = "abc";
         System.out.println(str1 == str2);
+
+        String a = "java";
+        a.toUpperCase();
+        System.out.println(a);
     }
 }
