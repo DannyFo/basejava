@@ -26,33 +26,18 @@ public class MainStream {
     }
 
     private static boolean filtrator(int counter, Integer accumulator) {
-        if (counter % 2 > 0) {
-            if (accumulator % 2 > 0) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            if (accumulator % 2 > 0) {
-                return false;
-            } else {
-                return true;
-            }
-        }
+        return (counter % 2 > 0) == (accumulator % 2 > 0);
+
     }
 
     private static int minValue(int[] values) {
-        int i = Arrays.stream(values).sorted().reduce(0, (x, y) ->
+        return Arrays.stream(values).sorted().distinct().reduce(0, (x, y) ->
                 reduсer(x, y));
-        return i;
     }
 
     private static int reduсer(int summ, int current) {
-        if (summ % 10 != current) {
             summ = summ * 10 + current;
             return summ;
-        }
-        return summ;
     }
 }
 
