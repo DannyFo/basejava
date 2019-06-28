@@ -16,28 +16,14 @@ public class MainStream {
     }
 
     private static List<Integer> oddOrEven(List<Integer> integers) {
-        int counter = 0;
-        for (Integer x : integers) {
-            counter = x + counter;
-        }
-        int finalCounter = counter;
-        List<Integer> list = integers.stream().filter(x -> filtrator(finalCounter, x)).collect(Collectors.toList());
-        return list;
-    }
-
-    private static boolean filtrator(int counter, Integer accumulator) {
-        return (counter % 2 > 0) == (accumulator % 2 > 0);
-
+        int finalCounter = integers.stream().reduce(0, (x, y) -> x + y);
+        return integers.stream().filter(x -> (finalCounter % 2 > 0) == (x % 2 > 0)).collect(Collectors.toList());
     }
 
     private static int minValue(int[] values) {
         return Arrays.stream(values).sorted().distinct().reduce(0, (x, y) ->
-                reduсer(x, y));
+                x * 10 + y);
     }
 
-    private static int reduсer(int summ, int current) {
-            summ = summ * 10 + current;
-            return summ;
-    }
 }
 
