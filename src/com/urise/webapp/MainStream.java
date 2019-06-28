@@ -16,7 +16,7 @@ public class MainStream {
     }
 
     private static List<Integer> oddOrEven(List<Integer> integers) {
-        int finalCounter = integers.stream().reduce(0, (x, y) -> x + y);
+        int finalCounter = integers.stream().reduce(0, Integer::sum);
         return integers.stream().filter(x -> (finalCounter % 2 > 0) == (x % 2 > 0)).collect(Collectors.toList());
     }
 
