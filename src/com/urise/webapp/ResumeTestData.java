@@ -1,24 +1,27 @@
 package com.urise.webapp;
 
+import com.urise.webapp.model.Link;
 import com.urise.webapp.model.Resume;
+
+import static com.urise.webapp.model.ContactType.*;
 
 public class ResumeTestData {
 
     public static Resume fillResume(String uuid, String name) {
         Resume r1 = new Resume(uuid, name);
 
-//        r1.addContact(PHONE, new Link("1234", null));
-//        r1.addContact(MOBILE, new Link("+7(921) 855-0482", null));
-//        r1.addContact(HOME_PHONE, new Link("12345", null));
-//        r1.addContact(SKYPE, new Link("grigory.kislin",
-//                "skype:grigory.kislin"));
-//        r1.addContact(MAIL, new Link("gkislin@yandex.ru",
-//                "gkislin@yandex.ru"));
-//        r1.addContact(LINKEDIN, new Link("Профиль LinkedIn", "https://www.linkedin.com/in/gkislin"));
-//        r1.addContact(GITHUB, new Link("Профиль GitHub", "https://github.com/gkislin"));
-//        r1.addContact(STATCKOVERFLOW, new Link("Профиль Stackoverflow",
-//                "https://stackoverflow.com/users/548473/gkislin"));
-//        r1.addContact(HOME_PAGE, new Link("Домашняя страница", "http://gkislin.ru"));
+        r1.addContact(PHONE, new Link("1234", null));
+        r1.addContact(MOBILE, new Link("+7(921) 855-0482", null));
+        r1.addContact(HOME_PHONE, new Link("12345", null));
+        r1.addContact(SKYPE, new Link("grigory.kislin",
+                "skype:grigory.kislin"));
+        r1.addContact(MAIL, new Link("gkislin@yandex.ru",
+                "gkislin@yandex.ru"));
+        r1.addContact(LINKEDIN, new Link("Профиль LinkedIn", "https://www.linkedin.com/in/gkislin"));
+        r1.addContact(GITHUB, new Link("Профиль GitHub", "https://github.com/gkislin"));
+        r1.addContact(STATCKOVERFLOW, new Link("Профиль Stackoverflow",
+                "https://stackoverflow.com/users/548473/gkislin"));
+        r1.addContact(HOME_PAGE, new Link("Домашняя страница", "http://gkislin.ru"));
 //
 //        r1.addSection(PERSONAL, new SimpleTextSection("Аналитический склад " +
 //                "ума, сильная логика, креативность, инициативность. " +

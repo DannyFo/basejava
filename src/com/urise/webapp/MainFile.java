@@ -34,6 +34,7 @@ public class MainFile {
         //ДЗ
         String space = "";
         getFiles(dir, space);
+
     }
 
     public static void getFiles(File directory, String space) {

@@ -59,11 +59,8 @@ public class Organization implements Serializable {
     public String toString() {
         return "Organization(" + homePage + "," + positions + ')';
     }
+    
 
-    /**
-     * gkislin
-     * 28.07.2016
-     */
     @XmlAccessorType(XmlAccessType.FIELD)
     public static class Position implements Serializable {
         @XmlJavaTypeAdapter(LocalDateAdapter.class)
